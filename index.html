@@ -414,6 +414,41 @@ const lakeWater=new THREE.Mesh(new THREE.CircleGeometry(1,48),new THREE.MeshPhon
 const lakeRipples=[];const rippleMat=new THREE.MeshBasicMaterial({color:0xc0ffff,transparent:true,opacity:.35,side:THREE.DoubleSide,depthWrite:false});
 for(let i=0;i<5;i++){const ring=new THREE.Mesh(new THREE.RingGeometry(.88,1,32),rippleMat.clone());ring.rotation.x=-Math.PI/2;ring.position.set(lakeCenter.x+Math.sin(i*2.3)*5,.055,lakeCenter.y+Math.cos(i*2.3)*3);scene.add(ring);lakeRipples.push({mesh:ring,phase:i*1.4})}
 function insideLake(x,z){const dx=(x-lakeCenter.x)/lakeRX,dz=(z-lakeCenter.y)/lakeRZ;return dx*dx+dz*dz<.85}
+
+// V20: Lava cave and reversible skeleton transformation.
+// The cave opens towards negative Z; the pool is walkable and harmless.
+const caveX=43,caveZ=-34;
+const caveRock=mat(0x292b32,{roughness:1}),caveRock2=mat(0x414047,{roughness:1});
+const cave=new THREE.Group();cave.position.set(caveX,0,caveZ);scene.add(cave);
+box(cave,15,.45,18,caveRock,0,-.12,0);
+box(cave,2.2,8.5,18,caveRock,-6.6,4,0);box(cave,2.2,8.5,18,caveRock,6.6,4,0);
+box(cave,15,2.3,18,caveRock,0,8.1,0);
+box(cave,4,6,2.5,caveRock,-5.5,4,-8.5);box(cave,4,6,2.5,caveRock,5.5,4,-8.5);
+box(cave,15,8,2,caveRock,0,4,8.5);
+for(let i=0;i<12;i++){const a=i*2.399;const xx=Math.sin(a)*5.4,zz=Math.cos(a)*7;const rock=box(cave,1.2+(i%3)*.6,1.2+(i%4)*.8,1.5,caveRock2,xx,.65,zz);rock.rotation.y=a}
+const lavaX=caveX,lavaZ=caveZ+2.2,lavaRX=4.3,lavaRZ=3.7;
+const lavaMat=new THREE.MeshBasicMaterial({color:0xff4b08,transparent:true,opacity:.96,side:THREE.DoubleSide});
+const lava=new THREE.Mesh(new THREE.CircleGeometry(1,40),lavaMat);lava.rotation.x=-Math.PI/2;lava.scale.set(lavaRX,lavaRZ,1);lava.position.set(lavaX,.055,lavaZ);scene.add(lava);
+const lavaCore=new THREE.Mesh(new THREE.CircleGeometry(1,40),new THREE.MeshBasicMaterial({color:0xffb01a,transparent:true,opacity:.6,side:THREE.DoubleSide}));lavaCore.rotation.x=-Math.PI/2;lavaCore.scale.set(lavaRX*.64,lavaRZ*.65,1);lavaCore.position.set(lavaX,.065,lavaZ);scene.add(lavaCore);
+const lavaLight=new THREE.PointLight(0xff5d19,4.5,23,2);lavaLight.position.set(lavaX,3,lavaZ);scene.add(lavaLight);
+for(let i=0;i<8;i++){const a=i*Math.PI/4;const coal=ball(cave,.28,mat(0xff8b1c,{emissive:0xff5000,emissiveIntensity:2}),Math.cos(a)*3.3,.25,2.2+Math.sin(a)*2.9)}
+const caveLabel=document.createElement('div');caveLabel.textContent='🔥 LAVA CAVE — walk into lava to become a skeleton · Moonlake water restores you';caveLabel.style.cssText='position:absolute;left:50%;transform:translateX(-50%);top:calc(96px + env(safe-area-inset-top));background:#251b1be8;border:1px solid #ff8c4a;border-radius:12px;padding:9px 12px;font-size:12px;max-width:85vw;text-align:center;pointer-events:none;z-index:9;display:none';document.body.appendChild(caveLabel);
+const bone=mat(0xe6dfbd,{roughness:.75}),boneShade=mat(0x9b9279),skullEye=mat(0x171920);
+const skeleton=new THREE.Group();character.add(skeleton);skeleton.visible=false;
+// LEGO-style articulated skeleton: skull, dark eye sockets, ribs, spine, pelvis, limbs.
+const skull=box(skeleton,.94,.85,.76,bone,0,3.45,0);box(skeleton,.66,.25,.68,bone,0,2.95,-.02);
+for(const side of [-1,1]){box(skeleton,.19,.22,.06,skullEye,side*.23,3.5,-.395);ball(skeleton,.095,skullEye,side*.22,3.49,-.42)}
+box(skeleton,.19,.12,.08,skullEye,0,3.2,-.4);
+box(skeleton,.22,1.35,.26,bone,0,2.26,0);
+for(let i=0;i<4;i++){const y=2.7-i*.25;box(skeleton,1.25-i*.11,.12,.35,bone,0,y,0)}
+box(skeleton,.9,.32,.55,bone,0,1.65,0);
+const skeletonArms=[],skeletonLegs=[];
+for(const side of [-1,1]){const arm=new THREE.Group();arm.position.set(side*.76,2.8,0);skeleton.add(arm);box(arm,.2,1.12,.23,bone,0,-.55,0);ball(arm,.19,bone,0,-1.16,0);skeletonArms.push(arm);const leg=new THREE.Group();leg.position.set(side*.3,1.55,0);skeleton.add(leg);box(leg,.23,1.18,.26,bone,0,-.6,0);box(leg,.36,.15,.52,bone,0,-1.23,-.11);skeletonLegs.push(leg)}
+let skeletonMode=false,transformCooldown=0;
+function setSkeletonMode(enabled){if(skeletonMode===enabled)return;skeletonMode=enabled;torso.visible=!enabled;for(const a of arms)a.visible=!enabled;for(const l of legs)l.visible=!enabled;skeleton.visible=enabled;burst(character.position.x,2,character.position.z,enabled?0xff5b16:0x8eeaff,18);notice(enabled?'💀 Lava magic! You are a skeleton. Enter Moonlake to transform back!':'💧 Moonlake restored your ghost ninja!');}
+function inLava(x,z){const dx=(x-lavaX)/lavaRX,dz=(z-lavaZ)/lavaRZ;return dx*dx+dz*dz<.82}
+function updateCave(dt){lavaMat.opacity=.86+Math.sin(t*3)*.09;lavaCore.material.opacity=.46+Math.sin(t*4.1)*.16;lavaCore.rotation.z=t*.1;lavaLight.intensity=3.7+Math.sin(t*6)*.9;transformCooldown=Math.max(0,transformCooldown-dt);const near=Math.hypot(character.position.x-caveX,character.position.z-caveZ)<15;caveLabel.style.display=near&&!dragonRiding?'block':'none';if(!dragonRiding&&!mounted&&character.position.y<1.4&&transformCooldown===0){if(!skeletonMode&&inLava(character.position.x,character.position.z)){setSkeletonMode(true);transformCooldown=1}else if(skeletonMode&&insideLake(character.position.x,character.position.z)){setSkeletonMode(false);transformCooldown=1}}for(let i=0;i<2;i++){skeletonArms[i].rotation.x=arms[i].rotation.x;skeletonLegs[i].rotation.x=legs[i].rotation.x}}
+
 // V17: lightweight flying enemies; only occasionally swoop, never harm the player.
 const skyMonsters=[],monsterBodyMat=new THREE.MeshStandardMaterial({color:0x583b82,emissive:0x28114c,emissiveIntensity:.55,roughness:.65}),monsterWingMat=new THREE.MeshStandardMaterial({color:0x9b65c7,transparent:true,opacity:.83,side:THREE.DoubleSide,depthWrite:false}),monsterEyeMat=new THREE.MeshBasicMaterial({color:0xff694d});
 const monsterBodyGeo=new THREE.SphereGeometry(.75,9,7),monsterWingGeo=new THREE.BoxGeometry(2.2,.12,1.25),monsterEyeGeo=new THREE.SphereGeometry(.12,7,5);
@@ -432,13 +467,14 @@ function updateMoonlake(dt){lakeWater.material.opacity=.7+Math.sin(t*1.4)*.06;fo
 
 dragonButton.addEventListener('click',toggleDragon);
 function updateAdventure(dt){
- cycleClock+=dt;lightTimer+=dt;if(lightTimer>=.12){lightTimer=0;const phase=(cycleClock/180)*Math.PI*2;const daylight=THREE.MathUtils.smoothstep(Math.sin(phase),-.3,.35);skyCurrent.copy(skyNight).lerp(skyDay,daylight);scene.background.copy(skyCurrent);scene.fog.color.copy(skyCurrent);sun.intensity=.15+daylight*2.05;ambient.intensity=.6+daylight*1.4;sun.position.set(Math.cos(phase)*35,8+daylight*40,18);updateAmbientVisuals(.12,daylight);nightSound=daylight<.25;const timeLabel=daylight>.6?'Daytime':daylight>.2?'Twilight':'Nighttime';if(timeEl.textContent!==timeLabel)timeEl.textContent=timeLabel;}
+ // Permanent bright daytime: no night cycle, darkness, or nighttime ambience.
+ lightTimer+=dt;if(lightTimer>=.25){lightTimer=0;scene.background.copy(skyDay);scene.fog.color.copy(skyDay);sun.intensity=2.2;ambient.intensity=2;sun.position.set(-14,46,18);updateAmbientVisuals(.25,1);nightSound=false;if(timeEl.textContent!=='Daytime ☀️')timeEl.textContent='Daytime ☀️';}
  if(potionUntil>t){const scale=potionEffect==='GIANT'?1.65:potionEffect==='TINY'?.65:1;character.scale.setScalar(scale);character.visible=potionEffect!=='INVISIBLE'||Math.floor(t*4)%2===0;}else{if(potionEffect){potionEffect='';potionUntil=0}if(character.scale.x!==1)character.scale.setScalar(1);if(!character.visible)character.visible=true;}
  if(dragonUnlocked){dragon.visible=true;if(dragonRiding){dragon.position.set(character.position.x,character.position.y-1.7,character.position.z);dragon.rotation.y=character.rotation.y;/* Preserve rider altitude: no fixed-height teleport during flight. */legs[0].rotation.x=-.7;legs[1].rotation.x=-.7;}else{dragon.position.set(lab.position.x+9,0,lab.position.z-22);dragon.rotation.y=Math.sin(t*.5)*.15;}for(const w of wings)w.pivot.rotation.z=w.side*(.15+Math.sin(t*7)*.28);}
  treasureCheck+=dt;if(treasureCheck>.15){treasureCheck=0;for(const c of treasures){if(c.opened)continue;const d=Math.hypot(c.root.position.x-character.position.x,c.root.position.z-character.position.z);if(d<2.4&&!dragonRiding){c.opened=true;c.root.visible=false;soundEffect('treasure');burst(c.root.position.x,1.5,c.root.position.z,0xffdd74,14);coinCount+=c.crystal?10:25;if(c.crystal)crystalCount++;coinEl.textContent=coinCount;crystalEl.textContent=crystalCount;notice(c.crystal?'💎 Crystal found! '+crystalCount+'/3':'🪙 Treasure chest! +25 coins');saveAdventure();if(crystalCount===3)notice('🐉 All crystals collected! Hatch the egg in the LAB.');}}}
  for(const c of treasures)if(!c.opened)c.glow.position.y=1.55+Math.sin(t*2+c.root.position.x)*.14;
 }
-function animate(){requestAnimationFrame(animate);const rawDt=clock.getDelta(),dt=Math.min(rawDt,.04);t+=dt;updateGraphicsQuality(rawDt);updateAdventure(dt);updateSkyMonsters(dt);updateMoonlake(dt);updateEnchantment(dt);audioTick();updateLabStation();let mx=joy.x+(keys.d||keys.arrowright?1:0)-(keys.a||keys.arrowleft?1:0),my=-joy.y+(keys.w||keys.arrowup?1:0)-(keys.s||keys.arrowdown?1:0);let magnitude=activity.hidden?Math.min(1,Math.hypot(mx,my)):0;if(magnitude){mx/=Math.hypot(mx,my);my/=Math.hypot(mx,my);let direction=motionDirection.copy(motionForward.set(-Math.sin(theta),0,-Math.cos(theta))).multiplyScalar(my).add(motionRight.set(Math.cos(theta),0,-Math.sin(theta)).multiplyScalar(mx));moveWithCollision(character,direction.x*dt*(dragonRiding?24:mounted?13.5:potionEffect==='SPEED'?12.5:7.2)*magnitude,direction.z*dt*(dragonRiding?24:mounted?13.5:potionEffect==='SPEED'?12.5:7.2)*magnitude,mounted?.85:.48);character.rotation.y=Math.atan2(-direction.x,-direction.z);character.position.x=THREE.MathUtils.clamp(character.position.x,-78,78);character.position.z=THREE.MathUtils.clamp(character.position.z,-78,78)}
+function animate(){requestAnimationFrame(animate);const rawDt=clock.getDelta(),dt=Math.min(rawDt,.04);t+=dt;updateGraphicsQuality(rawDt);updateAdventure(dt);updateSkyMonsters(dt);updateMoonlake(dt);updateCave(dt);updateEnchantment(dt);audioTick();updateLabStation();let mx=joy.x+(keys.d||keys.arrowright?1:0)-(keys.a||keys.arrowleft?1:0),my=-joy.y+(keys.w||keys.arrowup?1:0)-(keys.s||keys.arrowdown?1:0);let magnitude=activity.hidden?Math.min(1,Math.hypot(mx,my)):0;if(magnitude){mx/=Math.hypot(mx,my);my/=Math.hypot(mx,my);let direction=motionDirection.copy(motionForward.set(-Math.sin(theta),0,-Math.cos(theta))).multiplyScalar(my).add(motionRight.set(Math.cos(theta),0,-Math.sin(theta)).multiplyScalar(mx));moveWithCollision(character,direction.x*dt*(dragonRiding?24:mounted?13.5:potionEffect==='SPEED'?12.5:7.2)*magnitude,direction.z*dt*(dragonRiding?24:mounted?13.5:potionEffect==='SPEED'?12.5:7.2)*magnitude,mounted?.85:.48);character.rotation.y=Math.atan2(-direction.x,-direction.z);character.position.x=THREE.MathUtils.clamp(character.position.x,-78,78);character.position.z=THREE.MathUtils.clamp(character.position.z,-78,78)}
 if(dragonRiding){vy=0;grounded=true;const desiredAltitude=THREE.MathUtils.clamp(character.position.y+dragonVertical*dt*23,DRAGON_MIN_ALTITUDE,DRAGON_MAX_ALTITUDE);character.position.y=desiredAltitude;dragonAltitude.textContent='ALTITUDE '+Math.round(character.position.y)+'m';}else if(mounted){vy=0;grounded=true}else vy-= 18*dt;character.position.y+=vy*dt;if(!dragonRiding&&!mounted&&character.position.y<=0){character.position.y=0;vy=0;grounded=true}if(!dragonRiding&&!mounted&&character.position.y>.01)grounded=false;
 // Climb the hotel's open staircase by walking along its marked steps.
 const hx=character.position.x-hotel.position.x,hz=character.position.z-hotel.position.z;
