@@ -39,7 +39,7 @@ body.dragon-mounted #dragonBreath{background:#b32b1c!important;border:2px solid 
 body.dragon-mounted #dragonUp,body.dragon-mounted #dragonDown{width:98px!important;height:44px!important}
 body.dragon-mounted #context{display:none!important}
 @media(max-height:650px){body.dragon-mounted #dragonFlightControls{top:29%!important;gap:5px!important}body.dragon-mounted #dragonFlightControls button{height:39px!important}body.dragon-mounted #dragonBreath{height:45px!important}}
-</style></head><body><div id="audioPanel"><button id="soundToggle" aria-label="Enable sound">🔇 OFF</button><label for="soundVolume">Volume</label><input id="soundVolume" aria-label="Sound volume" type="range" min="0" max="100" value="24"></div><div id="loading">Building your ghost world…</div><div id="error">Unable to load the 3D engine. Please check your internet connection and reopen the page.</div><div id="hud"><div><h1>👻 GHOST NINJA: HAUNTED FOREST</h1><small>Explore the haunted forest • Version 33 · Lava Realm Bow Quest</small></div><div id="badge">✦ Ghost Mode</div></div><div id="inventory" style="position:absolute;top:calc(95px + env(safe-area-inset-top));right:16px;background:#123d32cc;border-radius:10px;padding:5px 9px;font-size:11px">Bag: 0 · Broken: 0</div><div id="score">Shadow beasts: <span id="kills">0</span></div><div id="tip">Find 3 crystal chests · Hatch a dragon in the LAB · Brew magical potions · Explore day and night</div><button id="regroup">REGROUP</button><div id="context"><button id="smartAction" hidden>INTERACT</button><button id="drop" hidden>PUT DOWN</button><button id="interact" hidden>EXPLORE</button><button id="mount" hidden>MOUNT</button><button id="pickup" hidden>PICK UP</button><button id="throw" hidden>THROW</button></div><div id="activity" hidden><h2 id="activityTitle">Adventure</h2><p id="activityText"></p><div id="activityChoices"></div><button id="closeActivity">CLOSE</button></div><div id="toast"></div><div id="labGuide" hidden>🧪 LAB — Find the glowing dragon egg in the centre!</div><button id="stationAction" hidden>🐉 HATCH DRAGON EGG</button><div id="adventureHud">💎 Crystals: <span id="crystals">0</span>/3<br>🪙 Coins: <span id="coins">0</span><br>🐉 Dragon: <span id="dragonStatus">Locked</span><br>🌙 <span id="timeStatus">Dusk</span></div><button id="dragonButton" disabled>🐉 DRAGON</button><div id="dragonFlightControls" hidden><div id="dragonAltitude">ALTITUDE 0m</div><button id="dragonUp">⬆ FLY UP</button><button id="dragonDown">⬇ FLY DOWN</button><button id="dragonBreath">🔥 RED FIRE</button></div><div id="joy"><div id="stick"></div></div><div id="actions"><button id="equip" hidden>EQUIP</button><button id="attack">⚔️ SLASH</button><button id="fire">🔥 FIRE</button><button id="jump">JUMP</button></div><script>
+</style></head><body><div id="audioPanel"><button id="soundToggle" aria-label="Enable sound">🔇 OFF</button><label for="soundVolume">Volume</label><input id="soundVolume" aria-label="Sound volume" type="range" min="0" max="100" value="24"></div><div id="loading">Building your ghost world…</div><div id="error">Unable to load the 3D engine. Please check your internet connection and reopen the page.</div><div id="hud"><div><h1>👻 GHOST NINJA: HAUNTED FOREST</h1><small>Explore the haunted forest • Version 34 · Lava Realm Bow Quest</small></div><div id="badge">✦ Ghost Mode</div></div><div id="inventory" style="position:absolute;top:calc(95px + env(safe-area-inset-top));right:16px;background:#123d32cc;border-radius:10px;padding:5px 9px;font-size:11px">Bag: 0 · Broken: 0</div><div id="score">Shadow beasts: <span id="kills">0</span></div><div id="tip">Find 3 crystal chests · Hatch a dragon in the LAB · Brew magical potions · Explore day and night</div><button id="regroup">REGROUP</button><div id="context"><button id="smartAction" hidden>INTERACT</button><button id="drop" hidden>PUT DOWN</button><button id="interact" hidden>EXPLORE</button><button id="mount" hidden>MOUNT</button><button id="pickup" hidden>PICK UP</button><button id="throw" hidden>THROW</button></div><div id="activity" hidden><h2 id="activityTitle">Adventure</h2><p id="activityText"></p><div id="activityChoices"></div><button id="closeActivity">CLOSE</button></div><div id="toast"></div><div id="labGuide" hidden>🧪 LAB — Find the glowing dragon egg in the centre!</div><button id="stationAction" hidden>🐉 HATCH DRAGON EGG</button><div id="adventureHud">💎 Crystals: <span id="crystals">0</span>/3<br>🪙 Coins: <span id="coins">0</span><br>🐉 Dragon: <span id="dragonStatus">Locked</span><br>🌙 <span id="timeStatus">Dusk</span></div><button id="dragonButton" disabled>🐉 DRAGON</button><div id="dragonFlightControls" hidden><div id="dragonAltitude">ALTITUDE 0m</div><button id="dragonUp">⬆ FLY UP</button><button id="dragonDown">⬇ FLY DOWN</button><button id="dragonBreath">🔥 RED FIRE</button></div><div id="joy"><div id="stick"></div></div><div id="actions"><button id="equip" hidden>EQUIP</button><button id="attack">⚔️ SLASH</button><button id="fire">🔥 FIRE</button><button id="jump">JUMP</button></div><script>
 window.addEventListener('error',function(e){
  const panel=document.getElementById('error'),loading=document.getElementById('loading');
  if(loading)loading.remove();
@@ -185,7 +185,7 @@ function registerCollider(o,minX,maxX,minZ,maxZ){for(let x=Math.floor(minX/CELL)
 for(const p of treePositions)registerCollider({type:0,x:p[0],z:p[1],radius:.52,minY:0,maxY:3.6},p[0]-.52,p[0]+.52,p[1]-.52,p[1]+.52);
 // Mountain footprints: the visual cones have wide bases, so block their lower slopes.
 for(let i=0;i<28;i++){const a=i*2.399,dist=57+(i%5)*4,x=Math.sin(a)*dist,z=Math.cos(a)*dist,radius=(8+(i%4)*2)*.50;registerCollider({type:0,x,z,radius,minY:0,maxY:16+(i%5)*5},x-radius,x+radius,z-radius,z+radius)}
-let inDarkRealm=false;function canStand(x,z,r=.48,y=0){if(typeof inDarkRealm!=='undefined'&&inDarkRealm)return x>202+r&&x<302-r&&z>-52+r&&z<52-r;if(x<-78+r||x>78-r||z<-78+r||z>78-r)return false;
+let inDarkRealm=false;function canStand(x,z,r=.48,y=0){if(typeof inDarkRealm!=='undefined'&&inDarkRealm)return x>216+r&&x<288-r&&z>-36+r&&z<36-r;if(x<-78+r||x>78-r||z<-78+r||z>78-r)return false;
  const minX=Math.floor((x-r)/CELL),maxX=Math.floor((x+r)/CELL),minZ=Math.floor((z-r)/CELL),maxZ=Math.floor((z+r)/CELL);
  for(let gx=minX;gx<=maxX;gx++)for(let gz=minZ;gz<=maxZ;gz++){const bucket=collisionGrid.get(gridKey(gx,gz));if(!bucket)continue;for(const o of bucket){if(y>=o.maxY-.05||y+2.4<=o.minY)continue;let dx,dz,rr;if(o.type){dx=Math.max(Math.abs(x-o.x)-o.hx,0);dz=Math.max(Math.abs(z-o.z)-o.hz,0);rr=r}else{dx=x-o.x;dz=z-o.z;rr=r+(o.radius??.34)}if(dx*dx+dz*dz<rr*rr)return false}}return true}
 function moveWithCollision(obj,dx,dz,r=.48){const steps=Math.max(1,Math.ceil(Math.hypot(dx,dz)/.28)),sx=dx/steps,sz=dz/steps;for(let i=0;i<steps;i++){const x=obj.position.x,z=obj.position.z;if(canStand(x+sx,z,r,obj.position.y))obj.position.x=x+sx;if(canStand(obj.position.x,z+sz,r,obj.position.y))obj.position.z=z+sz}}
@@ -674,8 +674,8 @@ function updateAdventure(dt){
 let realmPortalCooldown=0,realmHP=100,realmBossDefeated=false,realmHitCooldown=0,realmWave=1,realmKills=0,realmBossPhase=1,realmRegenDelay=0;
 const realmCenter=252,realmEnemies=[],realmShots=[],realmCrystals=[],realmGroup=new THREE.Group();scene.add(realmGroup);
 realmGroup.visible=false;const portalMain=new THREE.Group();portalMain.position.set(27,0,-43);scene.add(portalMain);
-const portalReturn=new THREE.Group();portalReturn.position.set(252,0,41);realmGroup.add(portalReturn);
-const extraReturnPortals=[];for(const [x,z] of [[212,0],[291,5],[250,-43],[214,-40]]){const p=new THREE.Group();p.position.set(x,0,z);realmGroup.add(p);extraReturnPortals.push(p);}
+const portalReturn=new THREE.Group();portalReturn.position.set(252,0,28);realmGroup.add(portalReturn);
+const extraReturnPortals=[];for(const [x,z] of [[224,0],[279,5],[252,-29],[226,-26]]){const p=new THREE.Group();p.position.set(x,0,z);realmGroup.add(p);extraReturnPortals.push(p);}
 
 const portalStone=mat(0x251a32,{roughness:.9}),portalPurple=mat(0xa83dff,{emissive:0x7724cc,emissiveIntensity:1.2,transparent:true,opacity:.85});
 function buildPortal(parent){
@@ -686,27 +686,27 @@ function buildPortal(parent){
 }
 const portalCore=buildPortal(portalMain),returnCore=buildPortal(portalReturn),extraReturnCores=extraReturnPortals.map(buildPortal);
 const portalLight=new THREE.PointLight(0xb54aff,2.5,14);portalLight.position.set(27,4,-43);scene.add(portalLight);
-const realmLight=new THREE.PointLight(0xff642a,2,35);realmLight.position.set(252,10,-23);realmGroup.add(realmLight);
+const realmLight=new THREE.PointLight(0xff642a,2,35);realmLight.position.set(252,10,-18);realmGroup.add(realmLight);
 const darkRock=mat(0x241c28),lavaGlow=mat(0xf54a13,{emissive:0xd83c0a,emissiveIntensity:1.2}),crystalMat=mat(0x7dffff,{emissive:0x22bfc7,emissiveIntensity:1.1}),obsidian=mat(0x3a263a);
-box(realmGroup,104,.5,104,darkRock,252,-.35,0);
-for(let i=0;i<42;i++){
- const x=206+(i*29)%94,z=-47+(i*43)%94;
+box(realmGroup,74,.5,74,darkRock,252,-.35,0);
+for(let i=0;i<27;i++){
+ const x=219+(i*19)%66,z=-32+(i*29)%64;
  const r=1.5+(i%4)*.5;
  const rock=cyl(realmGroup,.3,r,3+i%5,obsidian,x,1.2,z,6);rock.rotation.y=i;
 }
-for(let i=0;i<12;i++){const z=-40+i*7;box(realmGroup,1.8,.06,4.1,lavaGlow,221+Math.sin(i*.6)*7,.04,z);}
-for(let i=0;i<10;i++){const x=220+i*6;box(realmGroup,4.2,.06,1.5,lavaGlow,x,.05,-34+Math.sin(i*.6)*5);}
+for(let i=0;i<9;i++){const z=-27+i*6;box(realmGroup,1.8,.06,4.1,lavaGlow,231+Math.sin(i*.6)*5,.04,z);}
+for(let i=0;i<8;i++){const x=230+i*6;box(realmGroup,4.2,.06,1.5,lavaGlow,x,.05,-23+Math.sin(i*.6)*4);}
 function createRealmCrystal(x,z){
  const g=new THREE.Group();g.position.set(x,0,z);realmGroup.add(g);
  const gem=cyl(g,.05,.6,1.7,crystalMat,0,1.25,0,5);gem.rotation.z=.2;
  const halo=ball(g,.17,crystalMat,0,2.25,0);
  realmCrystals.push({g,gem,available:true,respawn:0});
 }
-for(let i=0;i<34;i++){const x=211+(i*19)%84,z=-43+(i*31)%82;if(Math.hypot(x-252,z-41)>9)createRealmCrystal(x,z);}
+for(let i=0;i<28;i++){const x=221+(i*17)%62,z=-29+(i*23)%58;if(Math.hypot(x-252,z-28)>8)createRealmCrystal(x,z);}
 const enemyColors=[0xb94c32,0x743f9c,0x536b39,0xcc8333];
 function makeRealmEnemy(i,boss=false){
  const g=new THREE.Group(),type=i%4;realmGroup.add(g);
- const x=boss?252:211+(i*23)%83,z=boss?-28:-37+(i*37)%72;
+ const x=boss?252:221+(i*17)%62,z=boss?-21:-28+(i*23)%56;
  g.position.set(x,0,z);
  const m=mat(boss?0x5e1428:enemyColors[type],{emissive:boss?0x5b0d12:0x160708,emissiveIntensity:.35});
  const scale=boss?3.4:1;
@@ -720,21 +720,21 @@ function makeRealmEnemy(i,boss=false){
  if(type===3&&!boss){for(let n=0;n<3;n++)cyl(g,.04,.28,.65,lavaGlow,(n-1)*.5,2.15,.1,5);}
  realmEnemies.push({g,type,boss,hp:boss?28:3,maxHp:boss?28:3,alive:true,shoot:2+i*.23,hit:0,respawnAt:0,spawnX:x,spawnZ:z});
 }
-for(let i=0;i<12;i++)makeRealmEnemy(i);
+for(let i=0;i<9;i++)makeRealmEnemy(i);
 // Green humanoid zombie raiders carry weapons and chase the player.
 const zombieSkin=mat(0x6cbb4b),zombieClothes=mat(0x4a303e),zombieBlade=mat(0xbac7cf,{metalness:.5});
 function makeZombie(i){
- const g=new THREE.Group();realmGroup.add(g);const x=214+(i*17)%75,z=-34+(i*23)%65;g.position.set(x,0,z);
+ const g=new THREE.Group();realmGroup.add(g);const x=224+(i*13)%56,z=-25+(i*19)%50;g.position.set(x,0,z);
  box(g,1.0,1.1,.6,zombieClothes,0,1.6,0);box(g,.78,.7,.7,zombieSkin,0,2.55,-.08);
  for(const side of [-1,1]){box(g,.28,1.0,.3,zombieSkin,side*.68,1.5,-.1);box(g,.35,.85,.38,zombieClothes,side*.28,.52,0);}
  const weapon=box(g,.15,1.3,.18,zombieBlade,.92,1.22,-.45);weapon.rotation.z=.3;
  ball(g,.085,lavaGlow,-.2,2.6,-.45);ball(g,.085,lavaGlow,.2,2.6,-.45);
  realmEnemies.push({g,type:4,boss:false,hp:5,maxHp:5,alive:true,shoot:5+i,hit:0,respawnAt:0,spawnX:x,spawnZ:z,zombie:true});
 }
-for(let i=0;i<7;i++)makeZombie(i);
+for(let i=0;i<6;i++)makeZombie(i);
 // Special red chests unlock the bow once, forever; both are reachable on foot.
 const bowChests=[];const redChestMat=mat(0xa91d22,{emissive:0x571012,emissiveIntensity:.5}),chestGold=mat(0xffd36a);
-for(const [x,z] of [[232,16],[276,-17]]){
+for(const [x,z] of [[237,12],[270,-14]]){
  const g=new THREE.Group();g.position.set(x,0,z);realmGroup.add(g);
  box(g,2.1,1.05,1.3,redChestMat,0,.55,0);box(g,2.2,.4,1.45,redChestMat,0,1.18,0);box(g,.23,1.55,1.5,chestGold,0,.85,0);
  box(g,.7,.48,.12,chestGold,0,1.03,-.75);const glow=ball(g,.22,chestGold,0,1.8,0);
@@ -742,24 +742,38 @@ for(const [x,z] of [[232,16],[276,-17]]){
 }
 
 makeRealmEnemy(30,true);
+
+// Grave Warden: distinct green zombie boss, armed with a giant glowing axe.
+function makeZombieBoss(){
+ const g=new THREE.Group();realmGroup.add(g);g.position.set(272,0,19);
+ const skin=mat(0x78b94d,{emissive:0x20380d,emissiveIntensity:.4}),armor=mat(0x392b4b,{metalness:.3}),axe=mat(0xff9e45,{emissive:0x8a2b0d,emissiveIntensity:.75});
+ box(g,2.5,2.9,1.35,armor,0,3.6,0);box(g,2.2,1.8,1.55,skin,0,6,-.1);
+ for(const side of [-1,1]){box(g,.8,2.5,.8,skin,side*1.6,3.7,0);box(g,.85,2.0,.85,armor,side*.7,1.2,0);ball(g,.22,lavaGlow,side*.55,6.2,-.87);}
+ const handle=cyl(g,.18,.2,4,obsidian,2.15,3.1,-.2,7);handle.rotation.z=-.35;
+ const blade=box(g,1.65,1.55,.35,axe,2.8,5.0,-.2);blade.rotation.z=.4;
+ box(g,2.9,.45,1.6,axe,0,4.75,0);
+ realmEnemies.push({g,type:5,boss:true,zombie:true,zombieBoss:true,hp:24,maxHp:24,alive:true,shoot:3,hit:0,respawnAt:0,spawnX:272,spawnZ:19});
+}
+makeZombieBoss();
+
 const realmHud=document.createElement('div');realmHud.style.cssText='position:fixed;z-index:70;left:50%;transform:translateX(-50%);top:54px;background:#210e1de8;color:#fff;border:1px solid #fa7146;border-radius:12px;padding:7px 12px;font:bold 13px system-ui;display:none;pointer-events:none;text-align:center;min-width:185px';document.body.appendChild(realmHud);
-function updateRealmHud(){const boss=realmEnemies.find(e=>e.boss);realmHud.textContent='🌋 ❤️ '+Math.max(0,Math.ceil(realmHP))+'/100 · 💎 '+crystalCount+' · ⚔️ '+realmKills+(realmBossDefeated?' · 👑 VICTORY':boss&&boss.alive?' · TITAN '+Math.max(0,Math.ceil(100*boss.hp/boss.maxHp))+'%':'');}
+function updateRealmHud(){const boss=realmEnemies.find(e=>e.boss&&!e.zombieBoss),warden=realmEnemies.find(e=>e.zombieBoss);realmHud.textContent='🌋 ❤️ '+Math.max(0,Math.ceil(realmHP))+'/100 · 💎 '+crystalCount+' · ⚔️ '+realmKills+(boss&&boss.alive?' · 🌋 TITAN '+Math.ceil(100*boss.hp/boss.maxHp)+'%':'')+(warden&&warden.alive?' · 🧟 WARDEN '+Math.ceil(100*warden.hp/warden.maxHp)+'%':'')+(!boss.alive&&!warden.alive?' · 👑 BOTH BOSSES DEFEATED':'');}
 function switchRealm(enter){
  if(dragonRiding)toggleDragon();
  if(mounted){mounted=null;}
  if(!enter){for(const f of realmShots){realmGroup.remove(f.mesh);f.mesh.material.dispose();}realmShots.length=0;}inDarkRealm=enter;realmGroup.visible=enter;realmPortalCooldown=3;realmHitCooldown=1.5;realmRegenDelay=0;
- character.position.set(enter?252:29,0,enter?33:-36);vy=0;grounded=true;
+ character.position.set(enter?252:29,0,enter?24:-36);vy=0;grounded=true;
  scene.fog.density=enter?.028:.013;scene.background.set(enter?0x21111c:0x8bc3d7);if(!enter){scene.fog.color.copy(skyDay);sun.intensity=2.2;ambient.intensity=2;}
  realmHud.style.display=enter?'block':'none';updateRealmHud();
  for(const c of companions){c.root.visible=!enter;if(!enter)c.regroupUntil=t+7;}
- notice(enter?'🌋 Collect crystals, defeat monsters, then challenge the Lava Titan! Find the red bow chest! Purple portals around the realm take you home.':'🌳 Back in Ghost Ninja World!');
+ notice(enter?'🌋 QUICK QUEST! Defeat the Lava Titan and Zombie Warden, find the red bow chest, and escape through any purple portal!':'🌳 Back in Ghost Ninja World!');
 }
 function damageRealmEnemy(e,amount){
  if(!inDarkRealm||!e.alive)return;
  e.hp-=amount;e.hit=.24;
  burst(e.g.position.x,e.boss?4:1.5,e.g.position.z,0xff9a3a,e.boss?10:5);
  if(e.hp<=0){e.alive=false;e.g.visible=false;e.respawnAt=t+55+Math.random()*25;realmKills++;realmHP=Math.min(100,realmHP+(e.boss?35:4));
-  if(e.boss){realmBossDefeated=true;notice('🏆 LAVA TITAN DEFEATED! +12 bonus crystals!');crystalCount+=12;crystalEl.textContent=crystalCount;saveAdventure();for(let i=0;i<8;i++)createRealmCrystal(244+i%4*5,-25+Math.floor(i/4)*5);}
+  if(e.boss){const reward=e.zombieBoss?10:12;if(!e.zombieBoss)realmBossDefeated=true;notice(e.zombieBoss?'🧟 GRAVE WARDEN DEFEATED! +10 crystals!':'🏆 LAVA TITAN DEFEATED! +12 crystals!');crystalCount+=reward;crystalEl.textContent=crystalCount;saveAdventure();for(let i=0;i<6;i++)createRealmCrystal((e.zombieBoss?263:244)+i%3*4,(e.zombieBoss?12:-20)+Math.floor(i/3)*4);}
   else {notice('⚔️ Monster defeated!');}
   updateRealmHud();
  }
@@ -799,12 +813,12 @@ function updateDarkRealm(dt){
  for(const e of realmEnemies){if(!e.alive){if(!e.boss&&t>=e.respawnAt){e.alive=true;e.hp=e.maxHp;e.g.visible=true;e.g.position.set(e.spawnX,0,e.spawnZ);e.shoot=2+Math.random()*2;}continue;}
   const ex=e.g.position.x,ez=e.g.position.z,dx=character.position.x-ex,dz=character.position.z-ez,d=Math.hypot(dx,dz);
   if(d<36){
-   const speed=e.boss?1.9:e.zombie?2.65:e.type===2?3.4:2.3;
+   const speed=e.zombieBoss?2.1:e.boss?1.9:e.zombie?2.65:e.type===2?3.4:2.3;
    if(d>(e.boss?5:2.2)&&d>.01){e.g.position.x+=dx/d*speed*dt;e.g.position.z+=dz/d*speed*dt;}
    e.g.rotation.y=Math.atan2(-dx,-dz);
-   if(d<(e.boss?5.5:2.6)&&realmHitCooldown<=0){realmHP-=e.boss?13:e.zombie?9:7;realmHitCooldown=.9;realmRegenDelay=0;burst(character.position.x,2,character.position.z,0xff6533,5);}
+   if(d<(e.boss?5.5:2.6)&&realmHitCooldown<=0){realmHP-=e.zombieBoss?12:e.boss?13:e.zombie?9:7;realmHitCooldown=.9;realmRegenDelay=0;burst(character.position.x,2,character.position.z,0xff6533,5);}
    e.shoot-=dt;
-   if(!e.zombie&&e.shoot<=0&&d<27&&realmHitCooldown<1.4){e.shoot=e.boss?(e.hp<e.maxHp*.5?1.5:2.3):3.8+Math.random()*2;
+   if((!e.zombie||e.zombieBoss)&&e.shoot<=0&&d<27&&realmHitCooldown<1.4){e.shoot=e.zombieBoss?(e.hp<e.maxHp*.5?1.8:2.6):e.boss?(e.hp<e.maxHp*.5?1.5:2.3):3.8+Math.random()*2;
     const mesh=new THREE.Mesh(fireballGeo,new THREE.MeshBasicMaterial({color:e.boss?0xffcf31:e.type===1?0xa24cff:0xff5c20}));
     mesh.position.set(ex,e.boss?4:1.6,ez);realmGroup.add(mesh);
     realmShots.push({mesh,vx:dx/Math.max(.1,d)*(e.boss?13:9),vz:dz/Math.max(.1,d)*(e.boss?13:9),life:3});
@@ -816,7 +830,7 @@ function updateDarkRealm(dt){
   if(Math.hypot(f.mesh.position.x-character.position.x,f.mesh.position.z-character.position.z)<1.4&&character.position.y<6){if(realmHitCooldown<=0){realmHP-=8;realmHitCooldown=.9;realmRegenDelay=0;burst(character.position.x,1.5,character.position.z,0xffa332,7);}f.life=0;}
   if(f.life<=0){realmGroup.remove(f.mesh);f.mesh.material.dispose();realmShots.splice(i,1);}
  }
- if(realmHP<=0){realmHP=100;realmHitCooldown=3;character.position.set(252,0,33);notice('❤️ Rescued at the portal! Your crystals are safe. Try again!');}
+ if(realmHP<=0){realmHP=100;realmHitCooldown=3;character.position.set(252,0,24);notice('❤️ Rescued at the portal! Your crystals are safe. Try again!');}
  if(Math.floor(t*5)!==Math.floor((t-dt)*5))updateRealmHud();
 }
 
@@ -825,7 +839,7 @@ document.addEventListener('visibilitychange',()=>{
  gamePaused=document.hidden;clock.getDelta();
  if(gamePaused){dragonVertical=0;for(const key in keys)keys[key]=false;resetJoy();}
 });
-function animate(){requestAnimationFrame(animate);const rawDt=clock.getDelta();if(gamePaused)return;const dt=Math.min(rawDt,.04);t+=dt;updateGraphicsQuality(rawDt);if(!inDarkRealm){updateAdventure(dt);updateSkyMonsters(dt);updateMoonlake(dt);updateCave(dt);}updateDarkRealm(dt);if(!inDarkRealm){updateEnchantment(dt);updateLabStation();}audioTick();updateArrows(dt);let mx=joy.x+(keys.d||keys.arrowright?1:0)-(keys.a||keys.arrowleft?1:0),my=-joy.y+(keys.w||keys.arrowup?1:0)-(keys.s||keys.arrowdown?1:0);let magnitude=activity.hidden?Math.min(1,Math.hypot(mx,my)):0;if(magnitude){mx/=Math.hypot(mx,my);my/=Math.hypot(mx,my);let direction=motionDirection.copy(motionForward.set(-Math.sin(theta),0,-Math.cos(theta))).multiplyScalar(my).add(motionRight.set(Math.cos(theta),0,-Math.sin(theta)).multiplyScalar(mx));moveWithCollision(character,direction.x*dt*(dragonRiding?24:mounted?13.5:potionEffect==='SPEED'?12.5:7.2)*magnitude,direction.z*dt*(dragonRiding?24:mounted?13.5:potionEffect==='SPEED'?12.5:7.2)*magnitude,mounted?.85:.48);character.rotation.y=Math.atan2(-direction.x,-direction.z);character.position.x=THREE.MathUtils.clamp(character.position.x,inDarkRealm?204:-78,inDarkRealm?300:78);character.position.z=THREE.MathUtils.clamp(character.position.z,inDarkRealm?-50:-78,inDarkRealm?50:78)}
+function animate(){requestAnimationFrame(animate);const rawDt=clock.getDelta();if(gamePaused)return;const dt=Math.min(rawDt,.04);t+=dt;updateGraphicsQuality(rawDt);if(!inDarkRealm){updateAdventure(dt);updateSkyMonsters(dt);updateMoonlake(dt);updateCave(dt);}updateDarkRealm(dt);if(!inDarkRealm){updateEnchantment(dt);updateLabStation();}audioTick();updateArrows(dt);let mx=joy.x+(keys.d||keys.arrowright?1:0)-(keys.a||keys.arrowleft?1:0),my=-joy.y+(keys.w||keys.arrowup?1:0)-(keys.s||keys.arrowdown?1:0);let magnitude=activity.hidden?Math.min(1,Math.hypot(mx,my)):0;if(magnitude){mx/=Math.hypot(mx,my);my/=Math.hypot(mx,my);let direction=motionDirection.copy(motionForward.set(-Math.sin(theta),0,-Math.cos(theta))).multiplyScalar(my).add(motionRight.set(Math.cos(theta),0,-Math.sin(theta)).multiplyScalar(mx));moveWithCollision(character,direction.x*dt*(dragonRiding?24:mounted?13.5:potionEffect==='SPEED'?12.5:7.2)*magnitude,direction.z*dt*(dragonRiding?24:mounted?13.5:potionEffect==='SPEED'?12.5:7.2)*magnitude,mounted?.85:.48);character.rotation.y=Math.atan2(-direction.x,-direction.z);character.position.x=THREE.MathUtils.clamp(character.position.x,inDarkRealm?218:-78,inDarkRealm?286:78);character.position.z=THREE.MathUtils.clamp(character.position.z,inDarkRealm?-34:-78,inDarkRealm?34:78)}
 if(dragonRiding){vy=0;grounded=true;const desiredAltitude=THREE.MathUtils.clamp(character.position.y+dragonVertical*dt*23,DRAGON_MIN_ALTITUDE,DRAGON_MAX_ALTITUDE);character.position.y=desiredAltitude;dragonAltitude.textContent='ALTITUDE '+Math.round(character.position.y)+'m';}else if(mounted){vy=0;grounded=true}else vy-= 18*dt;character.position.y+=vy*dt;if(!dragonRiding&&!mounted&&character.position.y<=0){character.position.y=0;vy=0;grounded=true}if(!dragonRiding&&!mounted&&character.position.y>.01)grounded=false;
 // Climb the hotel's open staircase by walking along its marked steps.
 const hx=character.position.x-hotel.position.x,hz=character.position.z-hotel.position.z;
