@@ -39,7 +39,7 @@ body.dragon-mounted #dragonBreath{background:#b32b1c!important;border:2px solid 
 body.dragon-mounted #dragonUp,body.dragon-mounted #dragonDown{width:98px!important;height:44px!important}
 body.dragon-mounted #context{display:none!important}
 @media(max-height:650px){body.dragon-mounted #dragonFlightControls{top:29%!important;gap:5px!important}body.dragon-mounted #dragonFlightControls button{height:39px!important}body.dragon-mounted #dragonBreath{height:45px!important}}
-</style></head><body><div id="audioPanel"><button id="soundToggle" aria-label="Enable sound">🔇 OFF</button><label for="soundVolume">Volume</label><input id="soundVolume" aria-label="Sound volume" type="range" min="0" max="100" value="24"></div><div id="loading">Building your ghost world…</div><div id="error">Unable to load the 3D engine. Please check your internet connection and reopen the page.</div><div id="hud"><div><h1>👻 GHOST NINJA: HAUNTED FOREST</h1><small>Explore the haunted forest • Version 34 · Lava Realm Bow Quest</small></div><div id="badge">✦ Ghost Mode</div></div><div id="inventory" style="position:absolute;top:calc(95px + env(safe-area-inset-top));right:16px;background:#123d32cc;border-radius:10px;padding:5px 9px;font-size:11px">Bag: 0 · Broken: 0</div><div id="score">Shadow beasts: <span id="kills">0</span></div><div id="tip">Find 3 crystal chests · Hatch a dragon in the LAB · Brew magical potions · Explore day and night</div><button id="regroup">REGROUP</button><div id="context"><button id="smartAction" hidden>INTERACT</button><button id="drop" hidden>PUT DOWN</button><button id="interact" hidden>EXPLORE</button><button id="mount" hidden>MOUNT</button><button id="pickup" hidden>PICK UP</button><button id="throw" hidden>THROW</button></div><div id="activity" hidden><h2 id="activityTitle">Adventure</h2><p id="activityText"></p><div id="activityChoices"></div><button id="closeActivity">CLOSE</button></div><div id="toast"></div><div id="labGuide" hidden>🧪 LAB — Find the glowing dragon egg in the centre!</div><button id="stationAction" hidden>🐉 HATCH DRAGON EGG</button><div id="adventureHud">💎 Crystals: <span id="crystals">0</span>/3<br>🪙 Coins: <span id="coins">0</span><br>🐉 Dragon: <span id="dragonStatus">Locked</span><br>🌙 <span id="timeStatus">Dusk</span></div><button id="dragonButton" disabled>🐉 DRAGON</button><div id="dragonFlightControls" hidden><div id="dragonAltitude">ALTITUDE 0m</div><button id="dragonUp">⬆ FLY UP</button><button id="dragonDown">⬇ FLY DOWN</button><button id="dragonBreath">🔥 RED FIRE</button></div><div id="joy"><div id="stick"></div></div><div id="actions"><button id="equip" hidden>EQUIP</button><button id="attack">⚔️ SLASH</button><button id="fire">🔥 FIRE</button><button id="jump">JUMP</button></div><script>
+</style></head><body><div id="audioPanel"><button id="soundToggle" aria-label="Enable sound">🔇 OFF</button><label for="soundVolume">Volume</label><input id="soundVolume" aria-label="Sound volume" type="range" min="0" max="100" value="24"></div><div id="loading">Building your ghost world…</div><div id="error">Unable to load the 3D engine. Please check your internet connection and reopen the page.</div><div id="hud"><div><h1>👻 GHOST NINJA: HAUNTED FOREST</h1><small>Explore the haunted forest • Version 36 · Lava Realm Bow Quest</small></div><div id="badge">✦ Ghost Mode</div></div><div id="inventory" style="position:absolute;top:calc(95px + env(safe-area-inset-top));right:16px;background:#123d32cc;border-radius:10px;padding:5px 9px;font-size:11px">Bag: 0 · Broken: 0</div><div id="score">Shadow beasts: <span id="kills">0</span></div><div id="tip">Find 3 crystal chests · Hatch a dragon in the LAB · Brew magical potions · Explore day and night</div><button id="regroup">REGROUP</button><div id="context"><button id="smartAction" hidden>INTERACT</button><button id="drop" hidden>PUT DOWN</button><button id="interact" hidden>EXPLORE</button><button id="mount" hidden>MOUNT</button><button id="pickup" hidden>PICK UP</button><button id="throw" hidden>THROW</button></div><div id="activity" hidden><h2 id="activityTitle">Adventure</h2><p id="activityText"></p><div id="activityChoices"></div><button id="closeActivity">CLOSE</button></div><div id="toast"></div><div id="labGuide" hidden>🧪 LAB — Find the glowing dragon egg in the centre!</div><button id="stationAction" hidden>🐉 HATCH DRAGON EGG</button><div id="adventureHud">💎 Crystals: <span id="crystals">0</span>/3<br>🪙 Coins: <span id="coins">0</span><br>🐉 Dragon: <span id="dragonStatus">Locked</span><br>🌙 <span id="timeStatus">Dusk</span></div><button id="dragonButton" disabled>🐉 DRAGON</button><div id="dragonFlightControls" hidden><div id="dragonAltitude">ALTITUDE 0m</div><button id="dragonUp">⬆ FLY UP</button><button id="dragonDown">⬇ FLY DOWN</button><button id="dragonBreath">🔥 RED FIRE</button></div><div id="joy"><div id="stick"></div></div><div id="actions"><button id="equip" hidden>EQUIP</button><button id="attack">⚔️ SLASH</button><button id="fire">🔥 FIRE</button><button id="jump">JUMP</button></div><script>
 window.addEventListener('error',function(e){
  const panel=document.getElementById('error'),loading=document.getElementById('loading');
  if(loading)loading.remove();
@@ -74,6 +74,12 @@ const character=new THREE.Group();scene.add(character);const torso=new THREE.Gro
 const head=new THREE.Group();head.position.y=3.31;torso.add(head);cyl(head,.54,.54,.74,green,0,0,0,24);ball(head,.09,eyeMat,-.2,.04,-.52);ball(head,.09,eyeMat,.2,.04,-.52);box(head,.33,.055,.025,dark,0,-.2,-.53);for(let i=0;i<17;i++){const a=i*2.39996;ball(head,.25+(.04*(i%3)),hairMat,Math.cos(a)*.46,.39+Math.sin(i*2.1)*.1,Math.sin(a)*.4)}
 const arms=[];for(const side of [-1,1]){let pivot=new THREE.Group();pivot.position.set(side*.82,2.82,0);torso.add(pivot);cyl(pivot,.25,.25,.85,green,0,-.4,0);ball(pivot,.22,lime,0,-.91,0);arms.push(pivot)}
 const legs=[];for(const side of [-1,1]){let pivot=new THREE.Group();pivot.position.set(side*.33,1.72,0);character.add(pivot);box(pivot,.57,1.15,.64,green,0,-.58,0);box(pivot,.59,.31,.8,lime,0,-1.24,-.09);legs.push(pivot)}box(character,1.18,.29,.68,lime,0,1.62,0);
+// Legendary crimson cape, worn only after discovering a golden chest.
+const capeFabric=mat(0x14131f,{roughness:.82,side:THREE.DoubleSide}),capeTrim=mat(0x6e718d);
+const heroCape=new THREE.Group();torso.add(heroCape);
+const capeCloth=box(heroCape,1.45,1.65,.09,capeFabric,0,-.20,.51);capeCloth.rotation.x=-.17;
+box(heroCape,1.55,.13,.15,capeTrim,0,.66,.49);
+heroCape.visible=false;
 // Three individually coloured ghost companions, modelled as articulated LEGO-style minifigures.
 const companions=[];
 function ghostMaterial(hex){return mat(hex,{transparent:true,opacity:.63,emissive:hex,emissiveIntensity:.34,depthWrite:false,side:THREE.DoubleSide})}
@@ -353,7 +359,7 @@ let animalFrame=0;function updateAnimalMotion(dt,time){animalFrame++;for(const a
 const steel=mat(0xd7f3ed,{metalness:.72,roughness:.18}),edge=mat(0x83ffbb,{emissive:0x2ba66a,emissiveIntensity:.6}),grip=mat(0x20232c),gold=mat(0xc69c3f);
 let equipped=false,attackTime=0,kills=0;
 // Weapon state must exist before setEquipped() and updateWeaponUI() execute.
-let bowUnlocked=false,bowMode=false,bowCooldown=0;
+let bowUnlocked=false,bowMode=false,bowCooldown=0,capeUnlocked=false;
 const swords=[];
 for(const [i,side] of [-1,1].entries()){
  const sw=new THREE.Group();arms[i].add(sw);sw.position.set(0,-1.07,-.05);
@@ -383,15 +389,24 @@ function fireArrow(){if(!bowUnlocked||!bowMode||bowCooldown>0||dragonRiding||mou
  bowCooldown=.55;const root=new THREE.Group();scene.add(root);root.position.set(character.position.x,character.position.y+2.15,character.position.z);
  const shaft=cyl(root,.045,.045,1.25,arrowShaft,0,0,0,6);shaft.rotation.x=Math.PI/2;
  const tip=new THREE.Mesh(new THREE.ConeGeometry(.14,.35,6),arrowTip);tip.rotation.x=-Math.PI/2;tip.position.z=-.77;root.add(tip);
- const dx=-Math.sin(character.rotation.y),dz=-Math.cos(character.rotation.y);root.rotation.y=character.rotation.y;
+ let dx=-Math.sin(character.rotation.y),dz=-Math.cos(character.rotation.y);
+ // Gentle aim assist: targets within a 75-degree cone, prioritising the nearest.
+ let best=null,bestScore=Infinity;
+ const candidates=inDarkRealm?realmEnemies.filter(e=>e.alive).map(e=>({x:e.g.position.x,z:e.g.position.z})):beasts.filter(b=>b.alive).map(b=>({x:b.root.position.x,z:b.root.position.z}));
+ for(const e of candidates){const vx=e.x-character.position.x,vz=e.z-character.position.z,d=Math.hypot(vx,vz);
+  if(d<1||d>34)continue;const dot=(vx*dx+vz*dz)/d;if(dot<.26)continue;
+  const score=d*(1.35-dot);if(score<bestScore){best=e;bestScore=score;}
+ }
+ if(best){const vx=best.x-character.position.x,vz=best.z-character.position.z,d=Math.hypot(vx,vz);dx=vx/d;dz=vz/d;}
+ root.rotation.y=Math.atan2(-dx,-dz);
  arrowProjectiles.push({root,dx,dz,life:1.35});soundEffect('fire');
 }
 function updateArrows(dt){bowCooldown=Math.max(0,bowCooldown-dt);
  for(let i=arrowProjectiles.length-1;i>=0;i--){const a=arrowProjectiles[i];a.life-=dt;
  a.root.position.x+=a.dx*34*dt;a.root.position.z+=a.dz*34*dt;
  let hit=a.life<=0||!canStand(a.root.position.x,a.root.position.z,.1);
- if(inDarkRealm&&!hit){for(const e of realmEnemies){if(!e.alive)continue;const d=Math.hypot(e.g.position.x-a.root.position.x,e.g.position.z-a.root.position.z);if(d<(e.boss?3.4:1.25)){damageRealmEnemy(e,e.boss?2:2);hit=true;break;}}}
- if(!inDarkRealm&&!hit){for(const b of beasts){if(!b.alive)continue;if(Math.hypot(b.root.position.x-a.root.position.x,b.root.position.z-a.root.position.z)<1.25){b.health-=2;if(b.health<=0){b.alive=false;scene.remove(b.root);kills++;document.getElementById('kills').textContent=kills;}hit=true;break;}}}
+ if(inDarkRealm&&!hit){for(const e of realmEnemies){if(!e.alive)continue;const d=Math.hypot(e.g.position.x-a.root.position.x,e.g.position.z-a.root.position.z);if(d<(e.boss?4.3:1.85)){damageRealmEnemy(e,e.boss?2:2);hit=true;break;}}}
+ if(!inDarkRealm&&!hit){for(const b of beasts){if(!b.alive)continue;if(Math.hypot(b.root.position.x-a.root.position.x,b.root.position.z-a.root.position.z)<1.7){b.health-=2;if(b.health<=0){b.alive=false;scene.remove(b.root);kills++;document.getElementById('kills').textContent=kills;}hit=true;break;}}}
  if(hit){burst(a.root.position.x,1.7,a.root.position.z,0x9deeff,4);scene.remove(a.root);arrowProjectiles.splice(i,1);}
  }
 }
@@ -435,9 +450,9 @@ const SAVE_KEY='ghost-ninja-world-v13';let savedGame={};try{savedGame=JSON.parse
 let coinCount=Math.max(0,Number(savedGame.coins)||0),crystalCount=Math.max(0,Number(savedGame.crystalBalance ?? (Array.isArray(savedGame.chests)?savedGame.chests.slice(0,3).filter(Boolean).length:0))||0),
 unlockedMounts={dragon:!!savedGame.dragon,unicorn:!!savedGame.unicorn,broom:!!savedGame.broom,monster:!!savedGame.monster},
 dragonUnlocked=unlockedMounts.dragon,dragonRiding=false,activeMount='dragon',treasureCheck=0,cycleClock=0,lightTimer=0;
-bowUnlocked=!!savedGame.bowUnlocked;
+bowUnlocked=!!savedGame.bowUnlocked;capeUnlocked=!!savedGame.capeUnlocked;heroCape.visible=capeUnlocked;
 updateWeaponUI();
-function saveAdventure(){try{localStorage.setItem(SAVE_KEY,JSON.stringify({coins:coinCount,dragon:dragonUnlocked,chests:treasures.map(c=>c.opened),crystalBalance:crystalCount,unicorn:unlockedMounts.unicorn,broom:unlockedMounts.broom,monster:unlockedMounts.monster,bowUnlocked:bowUnlocked}))}catch(e){}}
+function saveAdventure(){try{localStorage.setItem(SAVE_KEY,JSON.stringify({coins:coinCount,dragon:dragonUnlocked,chests:treasures.map(c=>c.opened),crystalBalance:crystalCount,unicorn:unlockedMounts.unicorn,broom:unlockedMounts.broom,monster:unlockedMounts.monster,bowUnlocked:bowUnlocked,capeUnlocked:capeUnlocked}))}catch(e){}}
 
 const crystalEl=document.getElementById('crystals'),coinEl=document.getElementById('coins'),timeEl=document.getElementById('timeStatus'),dragonButton=document.getElementById('dragonButton');
 const chestSpots=[[-8,49],[-57,40],[57,56],[-48,-55],[7,-52],[57,-52],[-66,5],[-63,67],[-30,65],[24,63],[69,21],[70,-10],[64,-66],[30,-65],[-12,-67],[-65,-37],[-52,-70],[39,37],[2,70],[-24,16],[53,3],[-10,-27]];
@@ -741,6 +756,29 @@ for(const [x,z] of [[237,12],[270,-14]]){
  bowChests.push({g,x,z,glow});g.visible=!bowUnlocked;
 }
 
+
+// Optional discoveries make this a short exploration quest, not only combat.
+const capeChests=[],goldChestMat=mat(0xd9a525,{emissive:0x745116,emissiveIntensity:.35});
+for(const [x,z] of [[229,-14],[276,27]]){
+ const g=new THREE.Group();g.position.set(x,0,z);realmGroup.add(g);
+ box(g,2.1,1.0,1.3,goldChestMat,0,.6,0);box(g,2.2,.42,1.45,chestGold,0,1.23,0);
+ box(g,.28,1.55,1.5,redChestMat,0,.86,0);ball(g,.24,chestGold,0,1.9,0);
+ capeChests.push({g,x,z});g.visible=!capeUnlocked;
+}
+const realmRunes=[],runeMat=mat(0x59d5ff,{emissive:0x248bff,emissiveIntensity:1.3});
+for(const [x,z] of [[235,24],[269,-26],[281,2]]){
+ const g=new THREE.Group();g.position.set(x,0,z);realmGroup.add(g);
+ const plinth=cyl(g,1.05,1.25,1.1,obsidian,0,.55,0,7);
+ const orb=ball(g,.65,runeMat,0,1.9,0);
+ realmRunes.push({g,x,z,orb,charged:false,ready:0});
+}
+const realmShrines=[],shrineMat=mat(0x58df95,{emissive:0x2d9955,emissiveIntensity:.9});
+for(const [x,z] of [[246,13],[260,-5]]){
+ const g=new THREE.Group();g.position.set(x,0,z);realmGroup.add(g);
+ cyl(g,1.1,1.3,.6,obsidian,0,.3,0,8);const orb=ball(g,.62,shrineMat,0,1.3,0);
+ realmShrines.push({g,x,z,orb,ready:0});
+}
+
 makeRealmEnemy(30,true);
 
 // Grave Warden: distinct green zombie boss, armed with a giant glowing axe.
@@ -757,7 +795,7 @@ function makeZombieBoss(){
 makeZombieBoss();
 
 const realmHud=document.createElement('div');realmHud.style.cssText='position:fixed;z-index:70;left:50%;transform:translateX(-50%);top:54px;background:#210e1de8;color:#fff;border:1px solid #fa7146;border-radius:12px;padding:7px 12px;font:bold 13px system-ui;display:none;pointer-events:none;text-align:center;min-width:185px';document.body.appendChild(realmHud);
-function updateRealmHud(){const boss=realmEnemies.find(e=>e.boss&&!e.zombieBoss),warden=realmEnemies.find(e=>e.zombieBoss);realmHud.textContent='🌋 ❤️ '+Math.max(0,Math.ceil(realmHP))+'/100 · 💎 '+crystalCount+' · ⚔️ '+realmKills+(boss&&boss.alive?' · 🌋 TITAN '+Math.ceil(100*boss.hp/boss.maxHp)+'%':'')+(warden&&warden.alive?' · 🧟 WARDEN '+Math.ceil(100*warden.hp/warden.maxHp)+'%':'')+(!boss.alive&&!warden.alive?' · 👑 BOTH BOSSES DEFEATED':'');}
+function updateRealmHud(){const boss=realmEnemies.find(e=>e.boss&&!e.zombieBoss),warden=realmEnemies.find(e=>e.zombieBoss);realmHud.textContent='🌋 ❤️ '+Math.max(0,Math.ceil(realmHP))+'/100 · 💎 '+crystalCount+' · ⚔️ '+realmKills+(boss&&boss.alive?' · 🌋 TITAN '+Math.ceil(100*boss.hp/boss.maxHp)+'%':'')+(warden&&warden.alive?' · 🧟 WARDEN '+Math.ceil(100*warden.hp/warden.maxHp)+'%':'')+(!boss.alive&&!warden.alive?' · 👑 BOSSES RETURN IN 5 MIN':'');}
 function switchRealm(enter){
  if(dragonRiding)toggleDragon();
  if(mounted){mounted=null;}
@@ -766,13 +804,13 @@ function switchRealm(enter){
  scene.fog.density=enter?.028:.013;scene.background.set(enter?0x21111c:0x8bc3d7);if(!enter){scene.fog.color.copy(skyDay);sun.intensity=2.2;ambient.intensity=2;}
  realmHud.style.display=enter?'block':'none';updateRealmHud();
  for(const c of companions){c.root.visible=!enter;if(!enter)c.regroupUntil=t+7;}
- notice(enter?'🌋 QUICK QUEST! Defeat the Lava Titan and Zombie Warden, find the red bow chest, and escape through any purple portal!':'🌳 Back in Ghost Ninja World!');
+ notice(enter?'🌋 Explore! Find the bow, black cape, three ancient runes and healing shrines. Defeat both bosses!':'🌳 Back in Ghost Ninja World!');
 }
 function damageRealmEnemy(e,amount){
  if(!inDarkRealm||!e.alive)return;
  e.hp-=amount;e.hit=.24;
  burst(e.g.position.x,e.boss?4:1.5,e.g.position.z,0xff9a3a,e.boss?10:5);
- if(e.hp<=0){e.alive=false;e.g.visible=false;e.respawnAt=t+55+Math.random()*25;realmKills++;realmHP=Math.min(100,realmHP+(e.boss?35:4));
+ if(e.hp<=0){e.alive=false;e.g.visible=false;e.respawnAt=t+(e.boss?300:55+Math.random()*25);realmKills++;realmHP=Math.min(100,realmHP+(e.boss?35:4));
   if(e.boss){const reward=e.zombieBoss?10:12;if(!e.zombieBoss)realmBossDefeated=true;notice(e.zombieBoss?'🧟 GRAVE WARDEN DEFEATED! +10 crystals!':'🏆 LAVA TITAN DEFEATED! +12 crystals!');crystalCount+=reward;crystalEl.textContent=crystalCount;saveAdventure();for(let i=0;i<6;i++)createRealmCrystal((e.zombieBoss?263:244)+i%3*4,(e.zombieBoss?12:-20)+Math.floor(i/3)*4);}
   else {notice('⚔️ Monster defeated!');}
   updateRealmHud();
@@ -802,6 +840,31 @@ function updateDarkRealm(dt){
   if(!bowUnlocked&&Math.hypot(character.position.x-c.x,character.position.z-c.z)<2.5){bowUnlocked=true;bowMode=true;saveAdventure();updateWeaponUI();burst(c.x,1.5,c.z,0xffe35c,18);notice('🏹 LEGENDARY BOW UNLOCKED! Tap SHOOT to fire arrows. Use the BOW/SWORD button to switch!');}
  }
 
+ for(const c of capeChests){c.g.visible=!capeUnlocked;
+  if(!capeUnlocked&&Math.hypot(character.position.x-c.x,character.position.z-c.z)<2.6){
+   capeUnlocked=true;heroCape.visible=true;saveAdventure();burst(c.x,2,c.z,0xffc54a,24);
+   notice('🦸 LEGENDARY BLACK CAPE FOUND! Your ninja can wear it in both worlds!');
+  }
+ }
+ for(const r of realmRunes){r.orb.position.y=1.9+Math.sin(t*2+r.x)*.14;
+  if(!r.charged&&Math.hypot(character.position.x-r.x,character.position.z-r.z)<2.6){
+   r.charged=true;r.orb.material=chestGold;burst(r.x,2,r.z,0x7fefff,15);
+   const charged=realmRunes.filter(a=>a.charged).length;
+   notice('🔮 Ancient rune activated! '+charged+'/3. Find all three for a crystal reward.');
+   if(charged===3){crystalCount+=8;crystalEl.textContent=crystalCount;saveAdventure();
+    notice('✨ ALL THREE RUNES! +8 crystals!');for(const a of realmRunes)a.ready=t+120;}
+  }
+ }
+ if(realmRunes.every(r=>r.charged)&&realmRunes[0].ready&&t>=realmRunes[0].ready){
+  for(const r of realmRunes){r.charged=false;r.orb.material=runeMat;r.ready=0;}
+  notice('🔮 The ancient runes are ready to discover again!');
+ }
+ for(const h of realmShrines){h.orb.position.y=1.3+Math.sin(t*2+h.x)*.13;
+  if(t>=h.ready&&realmHP<75&&Math.hypot(character.position.x-h.x,character.position.z-h.z)<2.5){
+   realmHP=Math.min(100,realmHP+40);h.ready=t+60;realmHitCooldown=1.5;
+   burst(h.x,1.5,h.z,0x55ffad,18);notice('💚 Healing shrine! +40 health. Recharges in one minute.');
+  }
+ }
  for(const c of realmCrystals){if(!c.available){if(t>=c.respawn){c.available=true;c.g.visible=true;}continue;}
   c.gem.rotation.y+=dt*1.3;
   if(Math.hypot(character.position.x-c.g.position.x,character.position.z-c.g.position.z)<2.2){
@@ -810,7 +873,7 @@ function updateDarkRealm(dt){
    burst(c.g.position.x,1.2,c.g.position.z,0x70ffff,7);notice('💎 Dark crystal collected! '+crystalCount+' total');
   }
  }
- for(const e of realmEnemies){if(!e.alive){if(!e.boss&&t>=e.respawnAt){e.alive=true;e.hp=e.maxHp;e.g.visible=true;e.g.position.set(e.spawnX,0,e.spawnZ);e.shoot=2+Math.random()*2;}continue;}
+ for(const e of realmEnemies){if(!e.alive){if(t>=e.respawnAt){e.alive=true;e.hp=e.maxHp;e.g.visible=true;e.g.position.set(e.spawnX,0,e.spawnZ);e.shoot=2+Math.random()*2;if(e.boss){notice(e.zombieBoss?"🧟 The Grave Warden has returned!":"🌋 The Lava Titan has awakened again!");if(!e.zombieBoss)realmBossDefeated=false;}}continue;}
   const ex=e.g.position.x,ez=e.g.position.z,dx=character.position.x-ex,dz=character.position.z-ez,d=Math.hypot(dx,dz);
   if(d<36){
    const speed=e.zombieBoss?2.1:e.boss?1.9:e.zombie?2.65:e.type===2?3.4:2.3;
@@ -889,6 +952,6 @@ updateCompanionTransformations();
 const walk=mounted?0:Math.sin(t*11)*.6*magnitude;legs[0].rotation.x=mounted?-.7:walk;legs[1].rotation.x=mounted?-.7:-walk;arms[0].rotation.x=-walk*.7;arms[1].rotation.x=walk*.7;if(equipped){arms[0].rotation.x=-.65+Math.sin(t*5)*.07;arms[1].rotation.x=-.65-Math.sin(t*5)*.07;if(attackTime>0){const swing=Math.sin((1-attackTime/.38)*Math.PI);arms[0].rotation.x=-1.35-swing*.8;arms[1].rotation.x=-1.35+swing*.5;arms[0].rotation.z=-1.15+2.3*(1-attackTime/.38);arms[1].rotation.z=1.15-2.3*(1-attackTime/.38);torso.rotation.y=Math.sin((1-attackTime/.38)*Math.PI)*.55}else{arms[0].rotation.z=0;arms[1].rotation.z=0}}if(attackTime<=0)torso.rotation.y=0;torso.rotation.z=Math.sin(t*2.2)*.018;head.rotation.y=Math.sin(t*1.3)*.045;portalGlow.rotation.z+=dt*.3;
 const target=cameraTarget.set(character.position.x,character.position.y+(dragonRiding?1.5:2.2),character.position.z);const desired=cameraDesired.set(target.x+Math.sin(theta)*camDist*Math.cos(phi),target.y+Math.sin(phi)*camDist+1,target.z+Math.cos(theta)*camDist*Math.cos(phi));// Lift camera above the open-roof buildings when the player is inside, preventing wall clipping.
 for(const loc of locations){if(Math.abs(character.position.x-loc.position.x)<BUILD_W/2+2&&Math.abs(character.position.z-loc.position.z)<BUILD_D/2+2){desired.y=Math.max(desired.y,character.position.y+10);break}}
-if(dragonRiding){desired.y+=Math.max(5,camDist*.3);desired.x+=Math.sin(theta)*9;desired.z+=Math.cos(theta)*9;}camera.position.lerp(desired,Math.min(1,dt*7));camera.lookAt(target);renderer.render(scene,camera)}
+if(dragonRiding){desired.y+=Math.max(5,camDist*.3);desired.x+=Math.sin(theta)*9;desired.z+=Math.cos(theta)*9;}camera.position.lerp(desired,Math.min(1,dt*7));camera.lookAt(target);if(heroCape.visible)capeCloth.rotation.x=-.17+Math.sin(t*7)*.07;renderer.render(scene,camera)}
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});document.getElementById('loading').remove();animate();
 </script><script>setTimeout(()=>{if(document.getElementById('loading')){document.getElementById('loading').remove();document.getElementById('error').style.display='block'}},12000)</script></body></html>
