@@ -39,7 +39,7 @@ body.dragon-mounted #dragonBreath{background:#b32b1c!important;border:2px solid 
 body.dragon-mounted #dragonUp,body.dragon-mounted #dragonDown{width:98px!important;height:44px!important}
 body.dragon-mounted #context{display:none!important}
 @media(max-height:650px){body.dragon-mounted #dragonFlightControls{top:29%!important;gap:5px!important}body.dragon-mounted #dragonFlightControls button{height:39px!important}body.dragon-mounted #dragonBreath{height:45px!important}}
-</style></head><body><div id="audioPanel"><button id="soundToggle" aria-label="Enable sound">🔇 OFF</button><label for="soundVolume">Volume</label><input id="soundVolume" aria-label="Sound volume" type="range" min="0" max="100" value="24"></div><div id="loading">Building your ghost world…</div><div id="error">Game could not start. Check internet access and open in a full browser.</div><div id="hud"><div><h1>👻 GHOST NINJA: HAUNTED FOREST</h1><small>Explore the haunted forest • Version 45 · Emerald Fire</small></div><div id="badge">✦ Human Mode</div></div><div id="inventory" style="position:absolute;top:calc(95px + env(safe-area-inset-top));right:16px;background:#123d32cc;border-radius:10px;padding:5px 9px;font-size:11px">Bag: 0 · Broken: 0</div><div id="score">Shadow beasts: <span id="kills">0</span></div><div id="tip">Find 3 crystal chests · Hatch a dragon in the LAB · Brew magical potions · Explore day and night</div><button id="regroup">REGROUP</button><div id="context"><button id="smartAction" hidden>INTERACT</button><button id="drop" hidden>PUT DOWN</button><button id="interact" hidden>EXPLORE</button><button id="mount" hidden>MOUNT</button><button id="pickup" hidden>PICK UP</button><button id="throw" hidden>THROW</button></div><div id="activity" hidden><h2 id="activityTitle">Adventure</h2><p id="activityText"></p><div id="activityChoices"></div><button id="closeActivity">CLOSE</button></div><div id="toast"></div><div id="labGuide" hidden>🧪 LAB — Find the glowing dragon egg in the centre!</div><button id="stationAction" hidden>🐉 HATCH DRAGON EGG</button><div id="adventureHud">💎 Crystals: <span id="crystals">0</span>/3<br>🪙 Coins: <span id="coins">0</span><br>🐉 Dragon: <span id="dragonStatus">Locked</span><br>🌙 <span id="timeStatus">Dusk</span></div><button id="dragonButton" disabled>🐉 DRAGON</button><div id="dragonFlightControls" hidden><div id="dragonAltitude">ALTITUDE 0m</div><button id="dragonUp">⬆ FLY UP</button><button id="dragonDown">⬇ FLY DOWN</button><button id="dragonBreath">🔥 RED FIRE</button></div><div id="joy"><div id="stick"></div></div><div id="actions"><button id="equip" hidden>EQUIP</button><button id="attack">⚔️ SLASH</button><button id="fire">🔥 FIRE</button><button id="jump">JUMP</button></div><script>
+</style></head><body><div id="audioPanel"><button id="soundToggle" aria-label="Enable sound">🔇 OFF</button><label for="soundVolume">Volume</label><input id="soundVolume" aria-label="Sound volume" type="range" min="0" max="100" value="24"></div><div id="loading">Building your ghost world…</div><div id="error">Game could not start. Check internet access and open in a full browser.</div><div id="hud"><div><h1>👻 GHOST NINJA: HAUNTED FOREST</h1><small>Explore the haunted forest • Version 46 · Rise of the Ghost Army</small></div><div id="badge">✦ Human Mode</div></div><div id="inventory" style="position:absolute;top:calc(95px + env(safe-area-inset-top));right:16px;background:#123d32cc;border-radius:10px;padding:5px 9px;font-size:11px">Bag: 0 · Broken: 0</div><div id="score">Shadow beasts: <span id="kills">0</span></div><div id="tip">Find 3 crystal chests · Hatch a dragon in the LAB · Brew magical potions · Explore day and night</div><button id="regroup">REGROUP</button><div id="context"><button id="smartAction" hidden>INTERACT</button><button id="drop" hidden>PUT DOWN</button><button id="interact" hidden>EXPLORE</button><button id="mount" hidden>MOUNT</button><button id="pickup" hidden>PICK UP</button><button id="throw" hidden>THROW</button></div><div id="activity" hidden><h2 id="activityTitle">Adventure</h2><p id="activityText"></p><div id="activityChoices"></div><button id="closeActivity">CLOSE</button></div><div id="toast"></div><div id="labGuide" hidden>🧪 LAB — Find the glowing dragon egg in the centre!</div><button id="stationAction" hidden>🐉 HATCH DRAGON EGG</button><div id="adventureHud">💎 Crystals: <span id="crystals">0</span>/3<br>🪙 Coins: <span id="coins">0</span><br>🐉 Dragon: <span id="dragonStatus">Locked</span><br>🌙 <span id="timeStatus">Dusk</span></div><button id="dragonButton" disabled>🐉 DRAGON</button><div id="dragonFlightControls" hidden><div id="dragonAltitude">ALTITUDE 0m</div><button id="dragonUp">⬆ FLY UP</button><button id="dragonDown">⬇ FLY DOWN</button><button id="dragonBreath">🔥 RED FIRE</button></div><div id="joy"><div id="stick"></div></div><div id="actions"><button id="equip" hidden>EQUIP</button><button id="attack">⚔️ SLASH</button><button id="fire">🔥 FIRE</button><button id="jump">JUMP</button></div><script>
 window.addEventListener('error',function(e){
  const panel=document.getElementById('error'),loading=document.getElementById('loading');
  if(loading)loading.remove();
@@ -101,14 +101,14 @@ function ghostMaterial(hex){return mat(hex,{transparent:true,opacity:.63,emissiv
 function createCompanion({name,color,accent,x,z,hairStyle,beard,small}){
  const root=new THREE.Group();root.position.set(x,0,z);scene.add(root);
  const scale=small?.79:1;const rig=new THREE.Group();rig.scale.setScalar(scale);root.add(rig);
- const spectral=ghostMaterial(color),bright=ghostMaterial(accent),suit=mat(color,{emissive:color,emissiveIntensity:.18}),trim=mat(accent,{emissive:accent,emissiveIntensity:.2}),ink=mat(0x10161c),face=mat(0xe0ad64),mouth=mat(0x3e2222);
+ const spectral=ghostMaterial(color),bright=ghostMaterial(accent),suit=mat(color,{emissive:color,emissiveIntensity:.18}),trim=mat(accent,{emissive:accent,emissiveIntensity:.2}),ink=mat(0x10161c),face=ghostMaterial(0x50fca3),mouth=mat(0x124a31);
  const body=new THREE.Group();rig.add(body);
  box(body,1.19,1.21,.75,suit,0,2.34,0);box(body,1.21,.12,.78,trim,0,2.94,0);
  box(body,.82,.16,.06,trim,0,2.42,-.4);box(body,.19,.45,.06,trim,0,2.63,-.41);
  box(rig,1.15,.3,.7,bright,0,1.62,0);
  const neck=new THREE.Group();neck.position.y=3.28;body.add(neck);
  cyl(neck,.52,.52,.74,face,0,0,0,24);
- for(const side of [-1,1]){ball(neck,.065,ink,side*.19,.055,-.517);box(neck,.16,.035,.02,ink,side*.19,.19,-.518)}
+ for(const side of [-1,1]){ball(neck,.115,mat(0xc8ffed,{emissive:0x67ffb9,emissiveIntensity:1.1}),side*.19,.055,-.517);box(neck,.16,.035,.02,ink,side*.19,.19,-.518)}
  // Distinct face details: adult man's stubble, woman's smile, young boy's open smile.
  if(beard){for(let i=0;i<11;i++){const a=Math.PI*.18+i*Math.PI*.064;ball(neck,.035,ink,Math.cos(a)*.33,-.20-Math.sin(a)*.10,-.43)}}
  box(neck,.31,.042,.028,mouth,0,-.18,-.528);
@@ -145,11 +145,27 @@ function createCompanion({name,color,accent,x,z,hairStyle,beard,small}){
   const l=new THREE.Group();l.position.set(side*.31,1.55,0);skeletonRig.add(l);
   box(l,.23,1.17,.27,ivory,0,-.59,0);box(l,.36,.15,.52,ivory,0,-1.22,-.11);skeletonLegs.push(l);
  }
- companions.push({name,root,body,neck,armPivots,legPivots,gem,skeletonRig,skeletonArms,skeletonLegs,isSkeleton:false,phase:companions.length*2.1,offset:companions.length,scale,home:new THREE.Vector3(x,0,z),wanderTarget:new THREE.Vector3(x,0,z),nextWander:0,regroupUntil:0});
+ companions.push({name,root,body,neck,armPivots,legPivots,gem,skeletonRig,skeletonArms,skeletonLegs,hp:50,downUntil:0,attackAt:0,weaponType:companions.length,isSkeleton:false,phase:companions.length*2.1,offset:companions.length,scale,home:new THREE.Vector3(x,0,z),wanderTarget:new THREE.Vector3(x,0,z),nextWander:0,regroupUntil:0});
 }
 createCompanion({name:'Blue Ghost',color:0x159eff,accent:0x8feaff,x:-3,z:3,hairStyle:'short',beard:true,small:false});
 createCompanion({name:'Red Ghost',color:0xf42b52,accent:0xff99aa,x:0,z:5,hairStyle:'long',beard:false,small:false});
 createCompanion({name:'Purple Ghost',color:0x9d43f5,accent:0xd6a1ff,x:3,z:3,hairStyle:'boy',beard:false,small:true});
+// V46: four masked emerald ghost ninjas, each carrying a distinctive weapon.
+for(let i=0;i<4;i++)createCompanion({name:['Emerald Katana','Emerald Spear','Emerald Archer','Emerald Axe'][i],color:0x22d979,accent:[0xb6ffce,0x65ffb4,0xaaffd5,0x53ffc3][i],x:-7+i*4,z:9,hairStyle:'short',beard:false,small:false});
+const squadSteel=mat(0xd7f5e8,{metalness:.58,roughness:.3}),squadWood=mat(0x66422c),squadMagic=mat(0xb877ff,{emissive:0x733aff,emissiveIntensity:1});
+for(const c of companions){
+ const masked=c.weaponType>=3;
+ if(masked){const mask=ghostMaterial(0x159c57);box(c.neck,1.08,.34,.86,mask,0,-.22,-.08);box(c.neck,1.12,.20,.90,mask,0,.35,0);}
+ const hand=c.armPivots[1],w=c.weaponType;
+ if(w===2){cyl(hand,.09,.09,2.4,squadWood,0,-1.35,-.28,7);ball(hand,.3,squadMagic,0,-2.52,-.28);}
+ else if(w===5){const bow=new THREE.Group();hand.add(bow);bow.position.set(0,-1.2,-.3);const arc=new THREE.Mesh(new THREE.TorusGeometry(.67,.075,6,18,Math.PI),squadWood);arc.rotation.z=Math.PI/2;bow.add(arc);box(bow,.035,1.3,.035,squadSteel,.05,0,0);}
+ else if(w===4){cyl(hand,.075,.075,2.4,squadWood,0,-1.45,-.25,7);cyl(hand,.025,.19,.7,squadSteel,0,-2.7,-.25,6);}
+ else if(w===6){cyl(hand,.09,.09,1.9,squadWood,0,-1.4,-.25,7);box(hand,.75,.8,.16,squadSteel,.28,-2.35,-.25);}
+ else if(w===1){for(const side of [-1,1]){const arm=c.armPivots[side===-1?0:1];box(arm,.12,1.2,.15,squadSteel,0,-1.48,-.28);}}
+ else{box(hand,.13,1.75,.15,squadSteel,0,-1.65,-.25);box(hand,.65,.12,.22,squadWood,0,-.95,-.25);}
+}
+let squadFollow=false;
+
 // The green ghost glows through emissive materials; no per-frame point light.
 // Instanced forest: 1 trunk draw call + 3 foliage draw calls instead of hundreds of meshes.
 const trunkMaterial=mat(0x75583b), foliageMaterials=[mat(0x176b46),mat(0x20834d)];
@@ -449,7 +465,7 @@ function updateFireballs(dt){updateEmeraldFX(dt);fireCooldown=Math.max(0,fireCoo
 for(const a of [...animals,...beasts]){if(!a.alive||a===mounted)continue;const dx=a.root.position.x-nx,dz=a.root.position.z-nz;if(dx*dx+dz*dz<2.1){a.health-=2;hit=true;if(a.health<=0){a.alive=false;scene.remove(a.root);kills++;document.getElementById('kills').textContent=kills;notice('🔥 Creature defeated!')}break}}
 for(const p of worldProps){if(hit)break;if(!p.alive||!p.breakable||p===carried)continue;const pos=new THREE.Vector3();p.root.getWorldPosition(pos);if(Math.hypot(pos.x-nx,pos.z-nz)<.9){p.alive=false;p.root.parent.remove(p.root);broken++;updateBag();hit=true;notice('🔥 Object destroyed!')}}}
 if(hit){emeraldFlash(m.position.x,m.position.y,m.position.z,16);burst(m.position.x,m.position.y,m.position.z,0x63ff93,7);soundEffect('impact');scene.remove(m);fireballs.splice(i,1)}}}
-document.getElementById('regroup').addEventListener('click',()=>{for(const c of companions)c.regroupUntil=t+8;notice('👻 Team assembling! They will roam again shortly.');});
+document.getElementById('regroup').addEventListener('click',()=>{squadFollow=!squadFollow;for(const c of companions)c.regroupUntil=squadFollow?Infinity:0;notice(squadFollow?'👻 GHOST ARMY: FOLLOW & FIGHT!':'👻 Squad roaming independently.');document.getElementById('regroup').textContent=squadFollow?'SQUAD: FOLLOW':'REGROUP';});
 let hotelLevel=0;let joy={x:0,y:0},jump=false,vy=0,grounded=true,theta=0,phi=.27,camDist=10,drag=null;const joyEl=document.getElementById('joy'),stick=document.getElementById('stick');function moveStick(e){const r=joyEl.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2),len=Math.max(1,Math.hypot(dx,dy)),max=48;joy.x=dx/Math.max(len,max);joy.y=dy/Math.max(len,max);const d=Math.min(max,len);stick.style.transform=`translate(${dx/len*d}px,${dy/len*d}px)`}joyEl.addEventListener('pointerdown',e=>{joyEl.setPointerCapture(e.pointerId);moveStick(e)});joyEl.addEventListener('pointermove',e=>{if(joyEl.hasPointerCapture(e.pointerId))moveStick(e)});function resetJoy(){joy.x=joy.y=0;stick.style.transform='translate(0,0)'}joyEl.addEventListener('pointerup',resetJoy);joyEl.addEventListener('pointercancel',resetJoy);
 document.getElementById('jump').addEventListener('pointerdown',e=>{e.preventDefault();if(mounted||dragonRiding||!activity.hidden)return;if(grounded){vy=jumpVelocity();grounded=false}});
 // iOS Safari can zoom the entire webpage after double taps even when the game camera is unchanged.
@@ -684,6 +700,7 @@ function setSkeletonMode(enabled){if(skeletonMode===enabled)return;skeletonMode=
 function updateCompanionTransformations(){
  for(const c of companions){
   const x=c.root.position.x,z=c.root.position.z;
+  if(inDarkRealm)continue;
   const next=c.isSkeleton ? !insideLake(x,z) : inLava(x,z);
   if(next===c.isSkeleton)continue;
   c.isSkeleton=next;
@@ -778,7 +795,7 @@ function makeRealmEnemy(i,boss=false){
  const limbs=[];for(const side of [-1,1]){const arm=new THREE.Group(),leg=new THREE.Group();arm.position.set(side*.85,2.15,0);leg.position.set(side*.36,1.08,0);rig.add(arm,leg);box(arm,.43,.95,.45,m,0,-.43,0);box(arm,.65,.4,.65,armor,0,-.05,0);box(leg,.48,.88,.5,armor,0,-.39,0);box(leg,.55,.24,.7,m,0,-.94,-.1);box(rig,.18,.13,.08,glow,side*.22,2.8,-.39);if(type!==2){const horn=cyl(rig,.02,.18,.55,glow,side*.36,3.28,0,5);horn.rotation.z=-side*.35;}if(side===1&&type!==0){box(arm,.13,1.35,.17,glow,0,-.95,-.23);box(arm,.55,.13,.18,armor,0,-.48,-.23);}limbs.push({arm,leg,side});}g.userData.limbs=limbs;
  realmEnemies.push({g,type,boss,hp:boss?28:3,maxHp:boss?28:3,alive:true,shoot:2+i*.23,hit:0,respawnAt:0,spawnX:x,spawnZ:z});
 }
-for(let i=0;i<9;i++)makeRealmEnemy(i);
+for(let i=0;i<20;i++)makeRealmEnemy(i);
 // Green humanoid zombie raiders carry weapons and chase the player.
 const zombieSkin=mat(0x6cbb4b),zombieClothes=mat(0x4a303e),zombieBlade=mat(0xbac7cf,{metalness:.5});
 function makeZombie(i){
@@ -789,7 +806,13 @@ function makeZombie(i){
  ball(g,.085,lavaGlow,-.2,2.6,-.45);ball(g,.085,lavaGlow,.2,2.6,-.45);
  realmEnemies.push({g,type:4,boss:false,hp:5,maxHp:5,alive:true,shoot:5+i,hit:0,respawnAt:0,spawnX:x,spawnZ:z,zombie:true});
 }
-for(let i=0;i<6;i++)makeZombie(i);
+for(let i=0;i<16;i++)makeZombie(i);
+// V46: stagger 36 regular monsters across six territories; never stack spawns.
+{const regular=realmEnemies.filter(e=>!e.boss);for(let i=0;i<regular.length;i++){
+ const zone=Math.floor(i/6),slot=i%6,cols=[228,252,276],rows=[-19,18];
+ const x=cols[zone%3]+(slot%3-1)*6.5+(zone%2)*1.2,z=rows[Math.floor(zone/3)]+(Math.floor(slot/3)-.5)*8;
+ const e=regular[i];e.spawnX=x;e.spawnZ=z;e.g.position.set(x,0,z);e.territory=zone;
+}}
 // Special red chests unlock the bow once, forever; both are reachable on foot.
 const bowChests=[];const redChestMat=mat(0xa91d22,{emissive:0x571012,emissiveIntensity:.5}),chestGold=mat(0xffd36a);
 for(const [x,z] of [[237,12],[270,-14]]){
@@ -866,7 +889,7 @@ function switchRealm(enter){
  character.position.set(enter?252:29,0,enter?24:-36);vy=0;grounded=true;
  scene.fog.density=enter?.028:.013;scene.background.set(enter?0x21111c:0x8bc3d7);if(!enter){scene.fog.color.copy(skyDay);sun.intensity=2.2;ambient.intensity=2;}
  realmHud.style.display=enter?'block':'none';updateRealmHud();
- for(const c of companions){c.root.visible=!enter;if(!enter)c.regroupUntil=t+7;}
+ for(const c of companions){c.root.visible=true;if(squadFollow){c.root.position.set(character.position.x+(c.offset-3)*1.3,0,character.position.z+4);c.regroupUntil=Infinity;}else if(!enter)c.regroupUntil=t+7;}
  notice(enter?'🌋 Explore! Find the bow, black cape, three ancient runes and healing shrines. Defeat all five bosses!':'🌳 Back in Ghost Ninja World!');
 }
 function damageRealmEnemy(e,amount,inferno=false){
@@ -940,9 +963,11 @@ function updateDarkRealm(dt){
   const ex=e.g.position.x,ez=e.g.position.z,dx=character.position.x-ex,dz=character.position.z-ez,d=Math.hypot(dx,dz);
   e.healthBar.visible=d<20&&e.hp<e.maxHp;e.healthFill.scale.x=1.55*Math.max(0,e.hp/e.maxHp);if(e.g.userData.limbs)for(const l of e.g.userData.limbs){const walking=d<36&&d>(e.boss?5:2.2);l.leg.rotation.x=walking?Math.sin(t*7)*.55*l.side:0;l.arm.rotation.x=d<3?-.9+Math.sin(t*8)*.8:walking?-Math.sin(t*7)*.45*l.side:0;}
   if(e.g.userData.wings)for(const w of e.g.userData.wings)w.wing.rotation.z=w.side*Math.sin(t*3)*.25;
-  if(d<36){
+  if(d<25&&Math.hypot(ex-e.spawnX,ez-e.spawnZ)<19){
    const speed=e.zombieBoss?2.1:e.boss?1.9:e.zombie?2.65:e.type===2?3.4:2.3;
-   if(d>(e.boss?5:2.2)&&d>.01){e.g.position.x+=dx/d*speed*dt;e.g.position.z+=dz/d*speed*dt;}
+   if(d>(e.boss?5:2.2)&&d>.01){let sx=dx/d,sz=dz/d;
+    for(const other of realmEnemies){if(other===e||!other.alive)continue;const ox=ex-other.g.position.x,oz=ez-other.g.position.z,dd=ox*ox+oz*oz;if(dd>0.01&&dd<(e.boss?20:9)){sx+=ox/dd*3.2;sz+=oz/dd*3.2;}}
+    const norm=Math.hypot(sx,sz)||1;e.g.position.x+=sx/norm*speed*dt;e.g.position.z+=sz/norm*speed*dt;}
    e.g.rotation.y=Math.atan2(-dx,-dz);
    if(d<(e.boss?5.5:2.6)&&realmHitCooldown<=0&&!skeletonMode&&character.position.y<4){realmHP-=e.zombieBoss?12:e.boss?13:e.zombie?9:7;realmHitCooldown=.9;realmRegenDelay=0;burst(character.position.x,2,character.position.z,0xff6533,5);}
    e.shoot-=dt;
@@ -952,6 +977,8 @@ function updateDarkRealm(dt){
     realmShots.push({mesh,vx:dx/Math.max(.1,d)*(e.boss?13:9),vz:dz/Math.max(.1,d)*(e.boss?13:9),life:3});
    }
   }
+  if(d>=25||Math.hypot(ex-e.spawnX,ez-e.spawnZ)>=19){const hx=e.spawnX-e.g.position.x,hz=e.spawnZ-e.g.position.z,hd=Math.hypot(hx,hz);if(hd>1){e.g.position.x+=hx/hd*dt*2;e.g.position.z+=hz/hd*dt*2;}}
+  if(inDarkRealm&&squadFollow&&!e.boss){for(const c of companions){if(c.downUntil>t)continue;const cd=Math.hypot(c.root.position.x-e.g.position.x,c.root.position.z-e.g.position.z);if(cd<2.6&&t>=(e.squadHitAt||0)){e.squadHitAt=t+1.8;c.hp-=e.zombie?14:10;if(c.hp<=0){c.downUntil=t+30;c.root.visible=false;notice('💀 '+c.name+' returns in 30 seconds!');}break;}}}
   e.hit=Math.max(0,e.hit-dt);
  }
  for(let i=realmShots.length-1;i>=0;i--){const f=realmShots[i];f.life-=dt;f.mesh.position.x+=f.vx*dt;f.mesh.position.z+=f.vz*dt;
@@ -1026,34 +1053,39 @@ if(inHotel&&!dragonRiding&&!mounted){
 
 attackTime=Math.max(0,attackTime-dt);updateFireballs(dt);updateDragonFlames(dt);updateHandItems(dt);updateAnimalMotion(dt,t);nearbyAccumulator+=dt;if(nearbyAccumulator>=.13){updateNearby(nearbyAccumulator);nearbyAccumulator=0}
 for(const b of beasts){if(inDarkRealm||!b.alive)continue;if(Math.abs(b.root.position.x-character.position.x)>38&&Math.abs(b.root.position.z-character.position.z)>38&&animalFrame%4!==0)continue;let toward=beastDelta.subVectors(character.position,b.root.position);toward.y=0;const d=toward.length();if(d<10&&d>2.2){toward.normalize();moveWithCollision(b.root,toward.x*dt*.65,toward.z*dt*.65,.65)}else if(d>=10){moveWithCollision(b.root,(b.home.x+Math.sin(t*.45+b.phase)*1.8-b.root.position.x)*Math.min(1,dt*3),(b.home.z+Math.cos(t*.38+b.phase)*1.8-b.root.position.z)*Math.min(1,dt*3),.65)}b.root.rotation.y=Math.atan2(-toward.x,-toward.z);b.root.position.y=Math.sin(t*3+b.phase)*.055;b.hit=Math.max(0,b.hit-dt);b.root.scale.setScalar(b.hit>0?1.12:1)}
-// Companions wander independently. REGROUP calls them to the player temporarily.
+// V46: squad navigation, formations, combat, and 30-second respawns.
 for(const c of companions){
- if(inDarkRealm||Math.abs(c.root.position.x-character.position.x)>40&&Math.abs(c.root.position.z-character.position.z)>40&&animalFrame%3!==0&&t>=c.regroupUntil)continue;
- const regrouping=t<c.regroupUntil;
- let goal;
- if(regrouping){
-  const angle=(c.offset-1)*2.1;
-  goal=companionGoal.set(character.position.x+Math.sin(angle)*2.8,0,character.position.z+Math.cos(angle)*2.8);
- }else{
-  // Select a new destination in a small local territory every few seconds.
-  if(t>=c.nextWander){
-   const angle=Math.random()*Math.PI*2, radius=3+Math.random()*9;
-   c.wanderTarget.set(c.home.x+Math.cos(angle)*radius,0,c.home.z+Math.sin(angle)*radius);
-   c.nextWander=t+3+Math.random()*5;
-  }
-  goal=c.wanderTarget;
+ if(c.downUntil>t){c.root.visible=false;continue;}
+ if(c.downUntil){c.downUntil=0;c.hp=50;c.root.visible=true;c.root.position.set(character.position.x+(c.offset-3)*1.5,0,character.position.z+4);notice('👻 '+c.name+' returned!');}
+ if(!inDarkRealm&&!squadFollow&&Math.abs(c.root.position.x-character.position.x)>45&&Math.abs(c.root.position.z-character.position.z)>45&&animalFrame%3!==0)continue;
+ const regrouping=squadFollow||t<c.regroupUntil;
+ let target=null,distToEnemy=Infinity;
+ if(regrouping){const candidates=inDarkRealm?realmEnemies.filter(e=>e.alive):beasts.filter(e=>e.alive);
+  for(const e of candidates){const p=e.g||e.root,d=Math.hypot(p.position.x-c.root.position.x,p.position.z-c.root.position.z);if(d<distToEnemy&&d<13&&Math.hypot(p.position.x-character.position.x,p.position.z-character.position.z)<20){target=e;distToEnemy=d;}}
  }
- const delta=companionDelta.subVectors(goal,c.root.position);delta.y=0;const dist=delta.length();
- let walking=0;
- if(dist>.55){const speed=regrouping?Math.min(9,3.8+dist*.6):1.8;const step=Math.min(dist-.5,dt*speed);delta.normalize();moveWithCollision(c.root,delta.x*step,delta.z*step,.4);c.root.rotation.y=Math.atan2(-delta.x,-delta.z);walking=1}
- // Animate either the normal limbs or the skeleton limbs.
+ let gx,gz;
+ const ranged=c.weaponType===2||c.weaponType===5;
+ if(target){const p=target.g||target.root,angle=(c.offset*2.4);const range=ranged?8:2.5;gx=p.position.x+Math.sin(angle)*range;gz=p.position.z+Math.cos(angle)*range;}
+ else if(regrouping){const angle=c.offset*Math.PI*2/companions.length;gx=character.position.x+Math.sin(angle)*3.6;gz=character.position.z+Math.cos(angle)*3.6;}
+ else{if(t>=c.nextWander){const angle=Math.random()*Math.PI*2,radius=3+Math.random()*9;c.wanderTarget.set(c.home.x+Math.cos(angle)*radius,0,c.home.z+Math.sin(angle)*radius);c.nextWander=t+3+Math.random()*5;}gx=c.wanderTarget.x;gz=c.wanderTarget.z;}
+ let dx=gx-c.root.position.x,dz=gz-c.root.position.z,dist=Math.hypot(dx,dz),walking=0;
+ if(dist>.6){const speed=regrouping?Math.min(14,5+dist*.65):1.8,step=Math.min(dist-.45,dt*speed);dx/=dist;dz/=dist;
+  if(inDarkRealm){let sx=dx,sz=dz;for(const other of companions){if(other===c||other.downUntil>t)continue;const ox=c.root.position.x-other.root.position.x,oz=c.root.position.z-other.root.position.z,d2=ox*ox+oz*oz;if(d2>0.01&&d2<3){sx+=ox/d2*1.6;sz+=oz/d2*1.6;}}const mag=Math.hypot(sx,sz)||1;c.root.position.x+=sx/mag*step;c.root.position.z+=sz/mag*step;c.root.position.x=THREE.MathUtils.clamp(c.root.position.x,218,286);c.root.position.z=THREE.MathUtils.clamp(c.root.position.z,-34,34);}
+  else moveWithCollision(c.root,dx*step,dz*step,.4);
+  c.root.rotation.y=Math.atan2(-dx,-dz);walking=1;
+ }
+ if(regrouping&&Math.hypot(c.root.position.x-character.position.x,c.root.position.z-character.position.z)>42)c.root.position.set(character.position.x+Math.sin(c.offset)*4,0,character.position.z+Math.cos(c.offset)*4);
+ if(target&&distToEnemy<(ranged?13:3.6)&&t>=c.attackAt){c.attackAt=t+(ranged?1.5:.9)+c.offset*.05;const p=target.g||target.root;c.root.rotation.y=Math.atan2(-(p.position.x-c.root.position.x),-(p.position.z-c.root.position.z));
+  if(inDarkRealm)damageRealmEnemy(target,target.boss?.7:ranged?1.4:1.1);
+  else{target.health-=ranged?1.5:1;if(target.health<=0){target.alive=false;scene.remove(target.root);kills++;document.getElementById('kills').textContent=kills;}}
+  burst(p.position.x,1.7,p.position.z,c.weaponType===2?0xb877ff:0x8affb7,4);
+ }
  const w=Math.sin(t*(walking?9:3)+c.phase)*.52*walking;
  c.legPivots[0].rotation.x=w;c.legPivots[1].rotation.x=-w;
- c.armPivots[0].rotation.x=-w*.65;c.armPivots[1].rotation.x=w*.65;
+ c.armPivots[0].rotation.x=-w*.65;c.armPivots[1].rotation.x=target&&t+0.25>c.attackAt?-1.2:w*.65;
  c.skeletonLegs[0].rotation.x=w;c.skeletonLegs[1].rotation.x=-w;
  c.skeletonArms[0].rotation.x=-w*.65;c.skeletonArms[1].rotation.x=w*.65;
- c.body.rotation.z=Math.sin(t*1.8+c.phase)*.025;
- c.neck.rotation.y=Math.sin(t*1.2+c.phase)*.07;
+ c.body.rotation.z=Math.sin(t*1.8+c.phase)*.025;c.neck.rotation.y=Math.sin(t*1.2+c.phase)*.07;
  c.gem.rotation.y+=dt*1.7;c.gem.position.y=(4.35+Math.sin(t*2+c.phase)*.13)*c.scale;
 }
 updateCompanionTransformations();
